@@ -16,7 +16,7 @@
               <div class="small-box bg-yellow">
                 <div class="inner">
                   <h3><?php echo $managerCount ?></h3>
-                  <p>Manager accounts</p>
+                  <p>Manager Accounts</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-stalker"></i>
@@ -30,7 +30,7 @@
               <div class="small-box bg-darkred">
                 <div class="inner">
                   <h3><?php echo $employeeCount ?></h3>
-                  <p>Employee accounts</p>
+                  <p>Employee Accounts</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person"></i>
@@ -41,7 +41,7 @@
 
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
-              <div class="small-box bg-green">
+              <div class="small-box bg-red">
                 <div class="inner">
                   <h3>11</h3>
                   <p>My Tasks</p>
@@ -52,6 +52,21 @@
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
+
+            <div class="col-lg-3 col-xs-6">
+             <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>65</h3>
+                  <p>Copleted Tasks</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <!-- ./col -->
 
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
@@ -67,20 +82,20 @@
               </div>
             </div><!-- ./col -->
 
-            <!--<div class="col-lg-3 col-xs-6">
-              
-              <div class="small-box bg-red">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-darkgreen">
                 <div class="inner">
-                  <h3>65</h3>
-                  <p>Reopened Issue</p>
+                  <h3>150 000 EUR</h3>
+                  <p>Total Profit <i>2017</i></p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
+                  <i class="ion ion-connection-bars"></i>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
-            </div>-->
-            <!-- ./col -->
+            </div><!-- ./col -->
+            
         </div>
 
         <?php
@@ -200,12 +215,12 @@
                         {
                             data: [<?php echo $employeeCount ?>, <?php echo $managerCount ?>],
                             backgroundColor: [
-                                "#FF6384",
-                                "#FFCE56"
+                                "#a94442",
+                                "#f39c12"
                             ],
                             hoverBackgroundColor: [
-                                "#FF6384",
-                                "#FFCE56"
+                                "#a94442",
+                                "#f39c12"
                             ]
                         }]
                   };

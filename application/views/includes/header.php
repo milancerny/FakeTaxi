@@ -93,9 +93,25 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class="treeview">
               <a href="<?php echo base_url(); ?>dashboard">
-                <i class="fa fa-dashboard"></i> <span>Dashboard</span></i>
+                <i class="fa fa-dashboard"></i>
+                <span>Dashboard</span></i>
               </a>
             </li>
+            <li class="treeview">
+              <a href="#" >
+                <i class="fa fa-tasks"></i>
+                <span>My Tasks</span>
+              </a>
+            </li>
+            <?php if($role == ROLE_ADMIN || $role == ROLE_MANAGER) { ?>
+            <li class="treeview">
+              <a href="#" >
+                <i class="fa fa-plus"></i>
+                <span>Create Task</span>
+              </a>
+            </li>
+            <?php } ?>
+
             <li class="treeview">
               <a href="#" >
                 <i class="fa fa-car"></i>
@@ -108,33 +124,16 @@
                 <span>Book of Journeys</span><!-- Kniha jázd -->
               </a>
             </li>
-            <?php
-            if($role == ROLE_ADMIN || $role == ROLE_MANAGER)
-            {
-            ?>
+            <?php if($role == ROLE_ADMIN || $role == ROLE_MANAGER) { ?>
             <li class="treeview">
               <a href="#" >
                 <i class="fa fa-money"></i>
                 <span>Payment</span>
               </a>
             </li>
-            <li class="treeview">
-              <a href="#" >
-                <i class="fa fa-upload"></i>
-                <span>Create Task</span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a href="#" >
-                <i class="fa fa-upload"></i>
-                <span>My Tasks</span>
-              </a>
-            </li>
-            <?php
-            }
-            if($role == ROLE_ADMIN)
-            {
-            ?>
+            <?php } ?>
+            
+            <?php if($role == ROLE_ADMIN) { ?>
             <li class="treeview">
               <a href="<?php echo base_url(); ?>userListing">
                 <i class="fa fa-users"></i>
@@ -147,9 +146,7 @@
                 <span>Reports</span>
               </a>
             </li>
-            <?php
-            }
-            ?>
+            <?php } ?>
           </ul>
         </section>
         <!-- /.sidebar -->
