@@ -10,7 +10,11 @@
     
     <section class="content">
         <div class="row">
-
+            <p>USER INFO</p>
+            <?php 
+              echo $name."<br>".$role."<br>".$role_text."<br>".$email."<br>".$userId;
+            ?>
+            <br><br><br>
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-yellow">
@@ -211,8 +215,7 @@
                         "Employee",
                         "Manager"
                     ],
-                    datasets: [
-                        {
+                    datasets: [{
                             data: [<?php echo $employeeCount ?>, <?php echo $managerCount ?>],
                             backgroundColor: [
                                 "#a94442",

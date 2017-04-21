@@ -98,7 +98,7 @@
               </a>
             </li>
             <li class="treeview">
-              <a href="#" >
+              <a href="<?php echo base_url(); ?>tasks" >
                 <i class="fa fa-tasks"></i>
                 <span>My Tasks</span>
               </a>

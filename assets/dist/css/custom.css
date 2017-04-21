@@ -7,3 +7,19 @@
     background-color: rgba(75,192,192,1);
     color: white;
 }
+
+.task-box{
+    border: 1px solid #ecf0f5;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: rgba(255, 255, 255, 0.84);
+    -webkit-box-shadow: 0px 6px 2px -1px rgba(0,0,0,0.28);
+    -moz-box-shadow: 0px 6px 2px -1px rgba(0,0,0,0.28);
+    box-shadow: 0px 6px 2px -1px rgba(0,0,0,0.28);
+}
+
+hr.task {
+    border-top: 1px solid #3c8dbc;
+}
+
+

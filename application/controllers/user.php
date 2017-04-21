@@ -21,18 +21,18 @@ class User extends BaseController
     {
         $this->global['pageTitle'] = 'Fake Taxi';
         
-        $this->load->model('dashboard_model');
-        $this->global['count'] = $this->dashboard_model->getManagerCounts();
+        //$this->load->model('dashboard_model');
+        //$this->global['count'] = $this->dashboard_model->getManagerCounts();
 
         $this->loadViews("dashboard", $this->global, NULL , NULL);//
     }
 
-    public function getManagerCounts() {
-        $this->load->model('user_model');
-        $data['count'] = $this->user_model->getManagerCounts();
+    // public function getManagerCounts() {
+    //     $this->load->model('user_model');
+    //     $data['count'] = $this->user_model->getManagerCounts();
         
-        $this->loadViews('users', $data);
-    }
+    //     $this->loadViews('users', $data);
+    // }
     
     /**
      * This function is used to load the user list
