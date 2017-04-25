@@ -61,6 +61,17 @@ class BaseController extends CI_Controller {
 			return false;
 		}
 	}
+
+	/**
+	 * This function is used to check the access manager
+	 */
+	 function isManager() {
+		if ($this->role != ROLE_MANAGER) {
+			return true;
+		} else {
+			return false;
+		} 
+	 }
 	
 	/**
 	 * This function is used to check the access
@@ -77,7 +88,7 @@ class BaseController extends CI_Controller {
 	 * This function is used to load the set of views
 	 */
 	function loadThis() {
-		$this->global ['pageTitle'] = 'CodeInsect : Access Denied';
+		$this->global ['pageTitle'] = 'FakeTaxi : Access Denied';
 		
 		$this->load->view ( 'includes/header', $this->global );
 		$this->load->view ( 'access' );

@@ -30,6 +30,30 @@ class Tasks_model extends CI_Model {
         return $query->result();
     }
 
+    function getSolvers() {
+        $this->db->select('t.userId, t.name');
+        $this->db->from('tbl_users t');
+        $this->db->where('t.userId !=', 1);
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+
+    /**
+     * This function is used to create new task to system
+     * @return number $insert_id : This is last inserted id
+     */
+    function createNewTask($userInfo) {
+        $this->db->trans_start();
+        $this->db->insert('tbl_task', $userInfo);
+        
+        $insert_id = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        
+        return $insert_id;
+    }
+
     
 }  
 ?>

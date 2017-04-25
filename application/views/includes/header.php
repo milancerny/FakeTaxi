@@ -106,8 +106,8 @@
             <?php if($role == ROLE_ADMIN || $role == ROLE_MANAGER) { ?>
             <li class="treeview">
               <a href="<?php echo base_url(); ?>taskManagment" >
-                <i class="fa fa-plus"></i>
-                <span>Overview of Tasks</span>
+                <i class="fa fa-pencil"></i>
+                <span>Tasks managment</span>
               </a>
             </li>
             <?php } ?>

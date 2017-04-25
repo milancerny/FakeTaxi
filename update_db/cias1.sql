@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 25, 2017 at 06:37 AM
+-- Generation Time: Apr 26, 2017 at 01:00 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -94,7 +94,10 @@ CREATE TABLE `tbl_task` (
 
 INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdBy`, `updatedBy`, `createdDate`, `updatedDate`, `isDeleted`, `isCompleted`, `img`, `userId`) VALUES
 (1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30 00:00:00', 1, 1, '2017-04-21 15:29:21', '2017-04-21 15:29:21', 0, 0, '', 4),
-(2, 'TESTIK PRE DVA ', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26 00:00:00', 1, 1, '2017-04-21 22:21:52', '2017-04-21 22:21:52', 0, 0, '', 4);
+(2, 'TESTIK PRE DVA ', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26 00:00:00', 1, 1, '2017-04-21 22:21:52', '2017-04-21 22:21:52', 0, 0, '', 4),
+(3, 'Test Create', 'testujem vytvorenie po prve', '2017-04-30 00:00:00', 1, 1, '2017-04-26 00:37:55', '2017-04-26 00:37:55', 0, 0, '', 4),
+(4, 'Test Redirect', 'TEST REDIRECT', '2017-05-12 00:00:00', 1, 1, '2017-04-26 00:44:20', '2017-04-26 00:44:20', 0, 0, '', 2),
+(5, 'Tasky Na Zajtra', '- pri create task due date calendar\r\n- vylistovanie vsetkych taskov nahradit ciselnu hodnotu ikonou\r\n- premyslet ci chcem pri tasku obrazok\r\n- dokoncit update / delete tasku', '2017-04-26 00:00:00', 2, 2, '2017-04-26 00:59:04', '2017-04-26 00:59:04', 0, 0, '', 4);
 
 -- --------------------------------------------------------
 
@@ -172,7 +175,7 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT for table `tbl_task`
 --
 ALTER TABLE `tbl_task`
-  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --

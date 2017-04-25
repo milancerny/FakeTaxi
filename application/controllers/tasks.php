@@ -25,7 +25,7 @@ class Tasks extends BaseController {
     }
 
     public function taskManagment() {
-        if($this->isAdmin() == TRUE) {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
             $this->loadThis();
         } else {
             $this->global['pageTitle'] = 'Task Managment';
@@ -41,6 +41,64 @@ class Tasks extends BaseController {
             $data['taskData'] = $this->tasks_model->getAllTasks($returns["page"], $returns["segment"]);
                 
             $this->loadViews('taskManagment', $this->global, $data , NULL);
+        }
+    }
+
+    public function createTask() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        } else {
+            $this->global['pageTitle'] = 'Create New Task';
+
+            $data["solvers"] = $this->tasks_model->getSolvers();
+
+            $this->loadViews('createTask', $this->global, $data , NULL);
+        }
+    }
+
+    /**
+     * This function is used to create new task to the system
+     */
+    function createNewTask() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        }
+        else {
+            $this->load->library('form_validation');
+            
+            $this->form_validation->set_rules('fsubject','Subject','trim|required|max_length[255]|xss_clean');
+            $this->form_validation->set_rules('fdes','Description','trim|required|max_length[255]|xss_clean');
+            $this->form_validation->set_rules('dueDate','Due date','required|max_length[20]|xss_clean');
+            $this->form_validation->set_rules('solver','Solver','trim|required|numeric');
+            
+            if($this->form_validation->run() == FALSE) {
+                $this->createTask();
+            } else {
+                $subject = ucwords(strtolower($this->input->post('fsubject')));
+                $description = $this->input->post('fdes');
+                $dueDate = $this->input->post('dueDate');
+                $solver = $this->input->post('solver');
+
+                /* glogbal params */
+                $createdBy = $this->global['userId'];
+                $updatedBy = $this->global['userId'];
+                
+                $userInfo = array('subject'=>$subject, 'description'=>$description, 'dueDate'=>$dueDate, 'userId'=> $solver,
+                                    'createdBy'=>$createdBy, 'updatedBy'=>$updatedBy, 'isDeleted' => 0, 'isCompleted' => 0);
+                #'createdDate'=>date('Y-m-d'), 'updatedDate'=>date('Y-m-d'),
+                
+                print_r($userInfo);
+                $this->load->model('tasks_model');
+                $result = $this->tasks_model->createNewTask($userInfo);
+                
+                if($result > 0) {
+                    $this->session->set_flashdata('success', 'New Task was created successfully');
+                } else {
+                    $this->session->set_flashdata('error', 'Task creation failed');
+                }
+                
+                redirect('createTask');
+            }
         }
     }
 

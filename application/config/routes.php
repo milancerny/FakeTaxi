@@ -72,6 +72,9 @@ $route['createPasswordUser'] = "login/createPasswordUser";
 $route['tasks'] = "tasks";
 $route['taskManagment'] = "tasks/taskManagment";
 $route['taskManagment/(:num)'] = "tasks/taskManagment/$1";
+$route['createTask'] = "tasks/createTask";
+
+$route['createNewTask'] = "tasks/createNewTask";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
