@@ -19,11 +19,17 @@ class Tasks extends BaseController {
         $this->global['pageTitle'] = 'My open tasks';
         
         $userId = $this->global['userId'];
-        $data['xx'] = $this->tasks_model->getAllMyActiveTask($userId);
+        $data['taskData'] = $this->tasks_model->getAllMyActiveTask($userId);
         // $this->global['managerCount'] = $this->dashboard_model->getManagerCounts();
         // $this->global['employeeCount'] = $this->dashboard_model->getEmployeeCounts();
 
         $this->loadViews('myTasks', $this->global, $data , NULL);
+    }
+
+    public function createTask() {
+        $this->global['pageTitle'] = 'Create new task';
+
+        $this->loadViews('taskManagment', $this->global, NULL , NULL);
     }
 }
 

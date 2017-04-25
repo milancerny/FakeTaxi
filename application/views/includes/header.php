@@ -105,7 +105,7 @@
             </li>
             <?php if($role == ROLE_ADMIN || $role == ROLE_MANAGER) { ?>
             <li class="treeview">
-              <a href="#" >
+              <a href="<?php echo base_url(); ?>taskManagment" >
                 <i class="fa fa-plus"></i>
                 <span>Create Task</span>
               </a>
@@ -150,4 +150,5 @@
           </ul>
         </section>
         <!-- /.sidebar -->
+        <h1 class="inspire">Pornhub</h1>
       </aside>

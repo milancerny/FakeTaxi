@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Apr 21, 2017 at 03:58 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.20
+-- Host: 127.0.0.1
+-- Generation Time: Apr 25, 2017 at 06:37 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -93,7 +93,8 @@ CREATE TABLE `tbl_task` (
 --
 
 INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdBy`, `updatedBy`, `createdDate`, `updatedDate`, `isDeleted`, `isCompleted`, `img`, `userId`) VALUES
-(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30 00:00:00', 1, 1, '2017-04-21 15:29:21', '2017-04-21 15:29:21', 0, 0, '', 4);
+(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30 00:00:00', 1, 1, '2017-04-21 15:29:21', '2017-04-21 15:29:21', 0, 0, '', 4),
+(2, 'TESTIK PRE DVA ', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26 00:00:00', 1, 1, '2017-04-21 22:21:52', '2017-04-21 22:21:52', 0, 0, '', 4);
 
 -- --------------------------------------------------------
 
@@ -171,7 +172,7 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT for table `tbl_task`
 --
 ALTER TABLE `tbl_task`
-  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --

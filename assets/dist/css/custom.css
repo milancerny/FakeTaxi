@@ -22,4 +22,12 @@ hr.task {
     border-top: 1px solid #3c8dbc;
 }
 
+.inspire {
+    color: #1e282c;
+    text-shadow: 0px 2px 3px #000;
+    position: fixed;
+    bottom: 0;    
+    letter-spacing: 5px;
+}
+
 

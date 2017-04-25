@@ -9,7 +9,9 @@ class Tasks_model extends CI_Model {
         $query = $this->db->get();
 
         return $query->result();
-        //SELECT COUNT(u.roleId) FROM tbl_users u JOIN tbl_roles r ON u.roleId=r.roleId WHERE r.roleId='2'
+        //SELECT * FROM tbl_task WHERE tbl_task.userId=$userId
     }
+
+    
 }  
 ?>
