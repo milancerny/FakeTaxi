@@ -107,7 +107,7 @@
             <li class="treeview">
               <a href="<?php echo base_url(); ?>taskManagment" >
                 <i class="fa fa-plus"></i>
-                <span>Create Task</span>
+                <span>Overview of Tasks</span>
               </a>
             </li>
             <?php } ?>

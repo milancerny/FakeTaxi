@@ -61,13 +61,13 @@
              <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>65</h3>
+                  <h3>0/<?php echo $allTasks ?></h3>
                   <p>Copleted Tasks</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo base_url(); ?>taskManagment" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->

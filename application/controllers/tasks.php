@@ -20,16 +20,36 @@ class Tasks extends BaseController {
         
         $userId = $this->global['userId'];
         $data['taskData'] = $this->tasks_model->getAllMyActiveTask($userId);
-        // $this->global['managerCount'] = $this->dashboard_model->getManagerCounts();
-        // $this->global['employeeCount'] = $this->dashboard_model->getEmployeeCounts();
 
         $this->loadViews('myTasks', $this->global, $data , NULL);
     }
 
-    public function createTask() {
-        $this->global['pageTitle'] = 'Create new task';
+    public function taskManagment() {
+        if($this->isAdmin() == TRUE) {
+            $this->loadThis();
+        } else {
+            $this->global['pageTitle'] = 'Task Managment';
 
-        $this->loadViews('taskManagment', $this->global, NULL , NULL);
+            $searchText = $this->input->post('searchText');
+            $data['searchText'] = $searchText;
+                
+            $this->load->library('pagination');
+                
+            //$count = $this->user_model->userListingCount($searchText);
+            $count = $this->tasks_model->getAllTasksCount();
+            $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
+            $data['taskData'] = $this->tasks_model->getAllTasks($returns["page"], $returns["segment"]);
+                
+            $this->loadViews('taskManagment', $this->global, $data , NULL);
+        }
+    }
+
+
+
+    function pageNotFound() {
+        $this->global['pageTitle'] = 'CodeInsect : 404 - Page Not Found';
+        
+        $this->loadViews("404", $this->global, NULL, NULL);
     }
 }
 

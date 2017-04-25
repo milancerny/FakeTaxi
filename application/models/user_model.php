@@ -13,13 +13,26 @@ class User_model extends CI_Model {
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
         if(!empty($searchText)) {
-            $likeCriteria = "(BaseTbl.email  LIKE '%".$searchText."%'
-                            OR  BaseTbl.name  LIKE '%".$searchText."%'
-                            OR  BaseTbl.mobile  LIKE '%".$searchText."%')";
-            $this->db->where($likeCriteria);
+            $searchText= "%".$searchText."%";
+            $this->db->where(array(
+                'BaseTbl.email LIKE' => $searchText,
+                'BaseTbl.isDeleted' => 0,
+                'BaseTbl.roleId !=' => 1));
+
+            $this->db->or_where('BaseTbl.name LIKE', $searchText);
+            $this->db->where(array(
+                'BaseTbl.isDeleted' => 0,
+                'BaseTbl.roleId !=' => 1));
+
+            $this->db->or_where('BaseTbl.mobile LIKE', $searchText);
+            $this->db->where(array(
+                'BaseTbl.isDeleted' => 0,
+                'BaseTbl.roleId !=' => 1));
+        } else {
+            $this->db->where(array(
+                'BaseTbl.isDeleted' => 0,
+                'BaseTbl.roleId !=' => 1));
         }
-        $this->db->where('BaseTbl.isDeleted', 0);
-        $this->db->where('BaseTbl.roleId !=', 1);
         $query = $this->db->get();
         
         return count($query->result());
@@ -38,13 +51,26 @@ class User_model extends CI_Model {
             $this->db->from('tbl_users as BaseTbl');
             $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
             if(!empty($searchText)) {
-                $likeCriteria = "(BaseTbl.email  LIKE '%".$searchText."%'
-                                OR  BaseTbl.name  LIKE '%".$searchText."%'
-                                OR  BaseTbl.mobile  LIKE '%".$searchText."%')";
-                $this->db->where($likeCriteria);
+                $searchText= "%".$searchText."%";
+                $this->db->where(array(
+                    'BaseTbl.email LIKE' => $searchText,
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1));
+
+                $this->db->or_where('BaseTbl.name LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1));
+
+                $this->db->or_where('BaseTbl.mobile LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1));
+            } else {
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1));
             }
-            $this->db->where('BaseTbl.isDeleted', 0);
-            $this->db->where('BaseTbl.roleId !=', 1);
             $this->db->limit($page, $segment);
             $query = $this->db->get();
             

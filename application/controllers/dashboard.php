@@ -9,6 +9,7 @@ class Dashboard extends BaseController {
         parent::__construct();
 
         $this->load->model('user_model');
+        $this->load->model('tasks_model');
         $this->load->model('dashboard_model');
         $this->isLoggedIn();   
     }
@@ -19,7 +20,9 @@ class Dashboard extends BaseController {
         $this->global['managerCount'] = $this->dashboard_model->getManagerCounts();
         $this->global['employeeCount'] = $this->dashboard_model->getEmployeeCounts();
 
-        $this->loadViews('dashboard', $this->global, NULL , NULL);
+        $data['allTasks'] = $this->tasks_model->getAllTasksCount();
+
+        $this->loadViews('dashboard', $this->global, $data , NULL);
     }
 }
 

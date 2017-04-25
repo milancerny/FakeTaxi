@@ -2,7 +2,7 @@
 
     <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>FakeTaxi</b> Admin System | Version 1.0
+          <b>FakeTaxi</b> Admin System | Version 1.0 | CodeIgniter version <?php echo CI_VERSION; ?>
         </div>
         <strong>Copyright &copy; 2017</strong> All rights reserved.
         <i class="ion ion-social-html5"></i>

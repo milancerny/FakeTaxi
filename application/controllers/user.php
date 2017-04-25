@@ -54,8 +54,7 @@ class User extends BaseController
             
             $count = $this->user_model->userListingCount($searchText);
 
-			$returns = $this->paginationCompress ( "userListing/", $count, 5 );
-            
+			$returns = $this->paginationCompress ( "userListing/", $count, 2 );
             $data['userRecords'] = $this->user_model->userListing($searchText, $returns["page"], $returns["segment"]);
             
             $this->global['pageTitle'] = 'CodeInsect : User Listing';

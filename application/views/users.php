@@ -24,7 +24,9 @@
                             <div class="input-group">
                               <input type="text" name="searchText" value="<?php echo $searchText; ?>" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
                               <div class="input-group-btn">
-                                <button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
+                                <button class="btn btn-sm btn-default searchList" style="height: 30px;">
+                                    <i class="fa fa-search"></i>
+                                </button>
                               </div>
                             </div>
                         </form>

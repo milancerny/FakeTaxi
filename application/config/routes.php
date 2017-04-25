@@ -70,7 +70,8 @@ $route['resetPasswordConfirmUser/(:any)/(:any)'] = "login/resetPasswordConfirmUs
 $route['createPasswordUser'] = "login/createPasswordUser";
 
 $route['tasks'] = "tasks";
-$route['taskManagment'] = "tasks/createTask";
+$route['taskManagment'] = "tasks/taskManagment";
+$route['taskManagment/(:num)'] = "tasks/taskManagment/$1";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
