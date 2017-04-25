@@ -73,5 +73,8 @@ $route['tasks'] = "tasks";
 $route['taskManagment'] = "tasks/taskManagment";
 $route['taskManagment/(:num)'] = "tasks/taskManagment/$1";
 
+$route['profile'] = "profile";
+$route['profilePicture'] = "profile/profilePicture";
+
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

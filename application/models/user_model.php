@@ -117,10 +117,11 @@ class User_model extends CI_Model {
      * This function is used to add new user to system
      * @return number $insert_id : This is last inserted id
      */
-    function addNewUser($userInfo)
+    function addNewUser($userInfo, $data)
     {
         $this->db->trans_start();
         $this->db->insert('tbl_users', $userInfo);
+        $this->db->insert('tbl_userprofile', $data);
         
         $insert_id = $this->db->insert_id();
         
@@ -213,6 +214,38 @@ class User_model extends CI_Model {
         
         return $this->db->affected_rows();
     }
+
+    public function get_userProfile(){
+        $this->db->select('*');
+        $this->db->from('tbl_userprofile');
+        $info = $this->session->userdata('email');
+
+        $this->db->where('tbl_userprofile.email ', $info);
+
+        $query = $this->db->get();
+
+        return $query->result();
+
+
+
+    }
+
+    public function insert($data = array()){
+        /*if(!array_key_exists("created",$data)){
+            $data['created'] = date("Y-m-d H:i:s");
+        }
+        if(!array_key_exists("modified",$data)){
+            $data['modified'] = date("Y-m-d H:i:s");
+        }*/
+        $insert = $this->db->replace($this->tbl_userprofile,$data);
+        if($insert){
+            return $this->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+
+
 }
 
   

@@ -135,9 +135,17 @@ class User extends BaseController
                 
                 $userInfo = array('email'=>$email, 'password'=>getHashedPassword($password), 'roleId'=>$roleId, 'name'=> $name,
                                     'mobile'=>$mobile, 'createdBy'=>$this->vendorId, 'createdDtm'=>date('Y-m-d H:i:sa'));
+
+                $data = array('email'=>$email, 'password'=>getHashedPassword($password), 'name'=> $name,
+                    'mobile'=>$mobile, 'createdDtm'=>date('Y-m-d H:i:sa'), 'pictureProfile'=>'picture.png');
                 
                 $this->load->model('user_model');
-                $result = $this->user_model->addNewUser($userInfo);
+                $result = $this->user_model->addNewUser($userInfo, $data);
+
+
+
+
+
                 
                 if($result > 0)
                 {
