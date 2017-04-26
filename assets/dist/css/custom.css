@@ -4,18 +4,18 @@
 }
 
 .bg-darkgreen {
-    background-color: rgba(75,192,192,1);
+    background-color: rgba(75, 192, 192, 1);
     color: white;
 }
 
-.task-box{
+.task-box {
     border: 1px solid #ecf0f5;
     padding: 10px;
     margin-bottom: 15px;
     background-color: rgba(255, 255, 255, 0.84);
-    -webkit-box-shadow: 0px 6px 2px -1px rgba(0,0,0,0.28);
-    -moz-box-shadow: 0px 6px 2px -1px rgba(0,0,0,0.28);
-    box-shadow: 0px 6px 2px -1px rgba(0,0,0,0.28);
+    -webkit-box-shadow: 0px 6px 2px -1px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: 0px 6px 2px -1px rgba(0, 0, 0, 0.28);
+    box-shadow: 0px 6px 2px -1px rgba(0, 0, 0, 0.28);
 }
 
 hr.task {
@@ -26,8 +26,32 @@ hr.task {
     color: #1e282c;
     text-shadow: 0px 2px 3px #000;
     position: fixed;
-    bottom: 0;    
+    bottom: 0;
     letter-spacing: 5px;
 }
 
+.datepicker-icon-background {
+    position: absolute;
+    z-index: 99;
+    right: 1px;
+    top: 1px;
+    background-color: #ecf0f5;
+    width: 28px;
+    height: 32px;
+    cursor: pointer;
+    border-left: 1px #cacaca solid;
+}
 
+.datepicker-icon-style {
+    position: absolute;
+    top: 9px;
+    left: 8px;
+}
+
+.color-darkred {
+    color: #a94442;
+}
+
+.color-green {
+    color: #00a65a;
+}

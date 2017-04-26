@@ -21,12 +21,12 @@
                 <br>
                 
                 <div style="width: 64%">
-                    <h3 class="inline"><i class="fa fa-paperclip" aria-hidden="true"></i> <?php echo $record->subject; ?></h3>
+                    <h3 class="inline"><i class="fa fa-paperclip" aria-hidden="true"></i> <?php echo htmlspecialchars($record->subject, ENT_QUOTES, 'UTF-8'); ?></h3>
                 </div>
                 <p class="inline pull-right">Due date: <small><?php echo $record->dueDate; ?></small></p>
                 <hr class="task">
                 <p>
-                    <?php echo $record->description; ?>
+                    <?php echo htmlspecialchars($record->description, ENT_QUOTES, 'UTF-8'); ?>
                 </p>
                 <br>
                 <div>

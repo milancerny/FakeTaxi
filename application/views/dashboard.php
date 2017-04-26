@@ -47,7 +47,7 @@
               <!-- small box -->
               <div class="small-box bg-red">
                 <div class="inner">
-                  <h3>11</h3>
+                  <h3><?php echo $myActiveTasks ?></h3>
                   <p>My Tasks</p>
                 </div>
                 <div class="icon">
@@ -61,7 +61,7 @@
              <!-- small box -->
               <div class="small-box bg-green">
                 <div class="inner">
-                  <h3>0/<?php echo $allTasks ?></h3>
+                  <h3><?php echo $completedTasks ?>/<?php echo $allTasks ?></h3>
                   <p>Copleted Tasks</p>
                 </div>
                 <div class="icon">

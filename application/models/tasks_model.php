@@ -3,13 +3,24 @@
 class Tasks_model extends CI_Model {
 
     function getAllMyActiveTask($userId) {
-        $this->db->select('*');
+        $this->db->select('*, isDeleted');
         $this->db->from('tbl_task');
         $this->db->where('tbl_task.userId', $userId);
+        $this->db->where('isDeleted !=', 1); //TEST !! show only valid tasks
         $query = $this->db->get();
 
         return $query->result();
         //SELECT * FROM tbl_task WHERE tbl_task.userId=$userId
+    }
+
+    function getAllMyActiveTaskCount($userId) {
+        $this->db->select('*, isDeleted');
+        $this->db->from('tbl_task');
+        $this->db->where('tbl_task.userId', $userId);
+        $this->db->where('isDeleted !=', 1); //TEST !! show only valid tasks
+        $query = $this->db->get();
+
+        return count($query->result());
     }
 
     function getAllTasksCount() {
@@ -20,10 +31,20 @@ class Tasks_model extends CI_Model {
         return count($query->result());
     }
 
+    function getCompletedTasksCount() {
+        $this->db->select('t.taskId, t.userId, t.subject, t.description, t.dueDate, t.isCompleted');
+        $this->db->from('tbl_task t');
+        $this->db->where('t.isCompleted', 1);
+        $query = $this->db->get();
+
+        return count($query->result());
+    }
+
     function getAllTasks($page, $segment) {
-        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted');
+        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted');
         $this->db->from('tbl_task t');
         $this->db->join('tbl_users as u', 't.userId=u.userId','left');
+        $this->db->where('t.isDeleted !=', 1); //show only valid tasks
         $this->db->limit($page, $segment);
         $query = $this->db->get();
 
@@ -31,9 +52,10 @@ class Tasks_model extends CI_Model {
     }
 
     function getSolvers() {
-        $this->db->select('t.userId, t.name');
+        $this->db->select('t.userId, t.name, t.roleId, r.role');
         $this->db->from('tbl_users t');
-        $this->db->where('t.userId !=', 1);
+        $this->db->join('tbl_roles as r', 't.roleId=r.roleId','left');
+        //$this->db->where('t.userId !=', 1);
         $query = $this->db->get();
         
         return $query->result();
@@ -52,6 +74,18 @@ class Tasks_model extends CI_Model {
         $this->db->trans_complete();
         
         return $insert_id;
+    }
+
+    /**
+     * This function is used to delete the task
+     * @param number $userId : This is taskId
+     * @return boolean $result : TRUE / FALSE
+     */
+    function deleteTask($taskId, $userInfo) {
+        $this->db->where('taskId', $taskId);
+        $this->db->update('tbl_task', $userInfo);
+        
+        return $this->db->affected_rows();
     }
 
     

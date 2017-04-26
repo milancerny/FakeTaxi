@@ -102,6 +102,30 @@ class Tasks extends BaseController {
         }
     }
 
+    /**
+     * This function is used to delete the task using taskId
+     * @return boolean $result : TRUE / FALSE
+     */
+    function deleteTask() {
+        if($this->isAdmin() == TRUE) {
+            echo(json_encode(array('status'=>'access')));
+        } else {
+            $taskId = $this->input->post('taskId');
+            
+            $userInfo = array('isDeleted'=>1,'updatedBy'=>$this->global['userId'], 'updatedDate'=>date('Y-m-d'));
+            
+            $result = $this->tasks_model->deleteTask($taskId, $userInfo);
+            
+            if($result > 0) {
+                $this->session->set_flashdata('success', 'Task was deleted successfully');
+                echo(json_encode(array('status'=>TRUE)));
+            } else { 
+                $this->session->set_flashdata('error', 'Task deletion failed');
+                echo(json_encode(array('status'=>FALSE))); 
+            }
+        }
+    }
+
 
 
     function pageNotFound() {

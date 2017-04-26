@@ -1,3 +1,4 @@
+<link href="<?php echo base_url(); ?>assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -26,8 +27,17 @@
                                         <input type="text" class="form-control required" id="fsubject" name="fsubject" maxlength="255">
                                     </div>
                                     <div class="form-group">
-                                        <label for="dueDate">Due date</label>
-                                        <input type="text" class="form-control required" id="dueDate"  name="dueDate">
+                                        <!--<label for="dueDate">Due date</label>
+                                        <input type="text" class="form-control required" id="dueDate"  name="dueDate">-->
+
+                                        <label class="control-label" for="date">Due date</label>
+                                        <div id="datetimepicker4" class="input-group input-append">
+                                            <input class="form-control datevalue required" id="dueDate"  name="dueDate" data-format="yyyy-MM-dd" type="text" placeholder="yyyy-MM-dd"></input>
+                                            <span class="add-on datepicker-icon-background">
+                                                <i class="datepicker-icon-style" data-time-icon="icon-time" data-date-icon="icon-calendar fa fa-calendar">
+                                                </i>
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="solver">Solver</label>
@@ -37,7 +47,7 @@
                                                 if(!empty($solvers)) {
                                                     foreach ($solvers as $solver) {
                                             ?>
-                                            <option value="<?php echo $solver->userId ?>"><?php echo $solver->name ?></option>
+                                            <option value="<?php echo $solver->userId ?>"><?php echo $solver->name." -> ".$solver->role ?></option>
                                             <?php
                                                     }
                                                 }
@@ -95,3 +105,17 @@
     
 </div>
 <script src="<?php echo base_url(); ?>assets/js/createTask.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(function() {
+            $('#datetimepicker4').datetimepicker({
+                pickTime: false
+                });
+            }).on('changeDate', function (e) {
+                // self.xtag.validation && self.validate();
+                $('#datetimepicker4').datetimepicker('hide');
+            });
+    });
+</script>

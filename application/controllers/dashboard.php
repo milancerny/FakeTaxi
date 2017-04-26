@@ -16,11 +16,16 @@ class Dashboard extends BaseController {
 
     public function index() {
         $this->global['pageTitle'] = 'Fake Taxi';
+        $userId = $this->global['userId'];
 
-        $this->global['managerCount'] = $this->dashboard_model->getManagerCounts();
-        $this->global['employeeCount'] = $this->dashboard_model->getEmployeeCounts();
+
+        $data['managerCount'] = $this->dashboard_model->getManagerCounts();
+        $data['employeeCount'] = $this->dashboard_model->getEmployeeCounts();
 
         $data['allTasks'] = $this->tasks_model->getAllTasksCount();
+        $data['completedTasks'] = $this->tasks_model->getCompletedTasksCount();
+        $data['myActiveTasks'] = $this->tasks_model->getAllMyActiveTaskCount($userId);
+        
 
         $this->loadViews('dashboard', $this->global, $data , NULL);
     }

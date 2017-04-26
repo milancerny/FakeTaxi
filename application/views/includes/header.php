@@ -21,6 +21,7 @@
     		font-weight: normal;
     	}
     </style>
+    
     <!-- CUSTOM CSS OVERRIDE ALL CSS-->
     <link href="<?php echo base_url(); ?>assets/dist/css/custom.css" rel="stylesheet" type="text/css" />
     <!-- jQuery 2.1.4 -->
