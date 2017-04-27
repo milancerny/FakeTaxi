@@ -1,21 +1,3 @@
-<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Delete Task</h4>
-      </div>
-      <div class="modal-body">
-        <p>This task will permanently deleted.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="deleteBtn">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -107,12 +89,14 @@
                       <td><?php echo $record->taskId ?></td>
                       <td style="width: 115px;"><?php echo $record->name ?></td>
                       <td style="width: 215px;"><?php echo htmlspecialchars($record->subject, ENT_QUOTES, 'UTF-8'); ?></td>
-                      <td><?php echo htmlspecialchars($record->description, ENT_QUOTES, 'UTF-8'); ?></td>
+                      <td style="white-space: pre-wrap;"><?php echo htmlspecialchars($record->description, ENT_QUOTES, 'UTF-8'); ?></td>
                       <td style="width: 105px;"><?php echo $record->dueDate ?></td>
                       <td class="text-center">
-                          <a class="btn btn-sm btn-info" href="<?php echo base_url().'editOld/'.$record->taskId; ?>"><i class="fa fa-pencil"></i></a>
+                          <a class="btn btn-sm btn-info" href="<?php echo base_url().'loadOldTask/'.$record->taskId; ?>">
+                            <i class="fa fa-pencil"></i>
+                          </a>
                           <?php if($role == ROLE_ADMIN) { ?>
-                          <a class="btn btn-sm btn-danger deleteTask" href="#" data-taskid="<?php echo $record->taskId; ?>"><i class="fa fa-trash"></i></a>
+                          <a class="btn btn-sm btn-danger deleteTask" href="#" data-toggle="modal" data-taskid="<?php echo $record->taskId; ?>"><i class="fa fa-trash"></i></a>
                           <?php } ?>
                       </td>
                     </tr>
@@ -134,6 +118,25 @@
         </div>
     </section>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete Task</h4>
+      </div>
+      <div class="modal-body">
+        <p>This task will permanently deleted.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="deleteBtn">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <script type="text/javascript">
     jQuery(document).ready(function(){

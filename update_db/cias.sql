@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2017 at 05:47 PM
+-- Generation Time: Apr 27, 2017 at 04:01 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -84,7 +84,6 @@ CREATE TABLE `tbl_task` (
   `updatedDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `isDeleted` int(4) NOT NULL DEFAULT '0',
   `isCompleted` int(4) NOT NULL DEFAULT '0',
-  `img` longtext COLLATE utf8_slovak_ci NOT NULL,
   `userId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
@@ -92,18 +91,18 @@ CREATE TABLE `tbl_task` (
 -- Dumping data for table `tbl_task`
 --
 
-INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdBy`, `updatedBy`, `createdDate`, `updatedDate`, `isDeleted`, `isCompleted`, `img`, `userId`) VALUES
-(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30', 1, 1, '2017-04-21 15:29:21', '2017-04-26 00:00:00', 0, 0, '', 4),
-(2, 'TESTIK PRE DVA ', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26', 1, 1, '2017-04-21 22:21:52', '2017-04-26 00:00:00', 1, 0, '', 4),
-(3, 'Test Create', 'testujem vytvorenie po prve', '2017-04-30', 1, 1, '2017-04-26 00:37:55', '2017-04-26 00:00:00', 1, 0, '', 4),
-(4, 'Test Redirect', 'TEST REDIRECT', '2017-05-12', 1, 1, '2017-04-26 00:44:20', '2017-04-26 00:00:00', 0, 1, '', 2),
-(5, 'Tasky Na Zajtra', '- pri create task due date calendar\r\n- vylistovanie vsetkych taskov nahradit ciselnu hodnotu ikonou\r\n- premyslet ci chcem pri tasku obrazok\r\n- dokoncit update / delete tasku', '2017-04-26', 2, 1, '2017-04-26 00:59:04', '2017-04-26 00:00:00', 0, 0, '', 4),
-(6, 'Testovanie S Datepickerom', 'testujem veselo o sto sest', '2017-04-30', 1, 1, '2017-04-26 10:32:31', '2017-04-26 10:32:31', 0, 0, '', 4),
-(7, '<b>test Xss</b>', 'testujeme <b>XSS</b>', '2017-05-01', 1, 1, '2017-04-26 11:09:00', '2017-04-26 00:00:00', 0, 0, '', 4),
-(8, '<b>xss</b>', 'dadasas', '2017-04-27', 1, 1, '2017-04-26 11:27:29', '2017-04-26 00:00:00', 0, 0, '', 4),
-(9, '<b>xss</b>', 'XSS LOOOOL', '2017-05-02', 1, 1, '2017-04-26 11:28:34', '2017-04-26 11:28:34', 0, 0, '', 4),
-(10, '<b><i>loool</i></b>', '[removed]alert&#40;"AHOOOOJ"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, '', 4),
-(11, 'Task', 'task', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-26 13:57:12', 0, 0, '', 4);
+INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdBy`, `updatedBy`, `createdDate`, `updatedDate`, `isDeleted`, `isCompleted`, `userId`) VALUES
+(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30', 1, 1, '2017-04-21 15:29:21', '2017-04-27 00:00:00', 0, 0, 4),
+(2, 'TESTIK PRE DVA ', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26', 1, 1, '2017-04-21 22:21:52', '2017-04-27 00:00:00', 0, 0, 4),
+(3, 'Test Create', 'testujem vytvorenie po prve', '2017-04-30', 1, 1, '2017-04-26 00:37:55', '2017-04-27 00:00:00', 0, 0, 4),
+(4, 'Test Redirect', 'TEST REDIRECT', '2017-05-12', 1, 1, '2017-04-26 00:44:20', '2017-04-26 00:00:00', 0, 1, 2),
+(5, 'Tasky Na Zajtra', '- pri create task due date calendar\r\n- vylistovanie vsetkych taskov nahradit ciselnu hodnotu ikonou\r\n- premyslet ci chcem pri tasku obrazok\r\n- dokoncit update / delete tasku', '2017-04-26', 2, 1, '2017-04-26 00:59:04', '2017-04-26 00:00:00', 0, 0, 4),
+(6, 'Testovanie S Datepickerom', 'testujem veselo o sto sest', '2017-04-30', 1, 1, '2017-04-26 10:32:31', '2017-04-26 10:32:31', 0, 0, 4),
+(7, '<b>test Xss</b>', 'testujeme <b>XSS</b>', '2017-05-01', 1, 1, '2017-04-26 11:09:00', '2017-04-26 00:00:00', 0, 0, 4),
+(8, '<b>xss</b>', 'dadasas', '2017-04-27', 1, 1, '2017-04-26 11:27:29', '2017-04-26 00:00:00', 0, 0, 4),
+(9, '<b>xss</b>', 'XSS LOOOOL', '2017-05-02', 1, 1, '2017-04-26 11:28:34', '2017-04-26 11:28:34', 0, 0, 4),
+(10, '<b><i>loool</i></b>', '[removed]alert&#40;"AHOOOOJ"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
+(11, 'Task', 'task', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -130,11 +129,11 @@ CREATE TABLE `tbl_users` (
 --
 
 INSERT INTO `tbl_users` (`userId`, `email`, `password`, `name`, `mobile`, `roleId`, `isDeleted`, `createdBy`, `createdDtm`, `updatedBy`, `updatedDtm`) VALUES
-(1, 'admin@codeinsect.com', '$2y$10$WQQRBQDkxV/98bqK.24Dp.uMVS6KcztVqdwwTrOBLIWLSeSqE2gii', 'Milanko Cerny', '9890098900', 1, 0, 0, '2015-07-01 18:56:49', 1, '2017-03-03 12:08:39'),
-(2, 'manager@codeinsect.com', '$2y$10$quODe6vkNma30rcxbAHbYuKYAZQqUaflBgc4YpV9/90ywd.5Koklm', 'Manager', '9890098900', 2, 0, 1, '2016-12-09 17:49:56', 1, '2017-04-11 15:18:17'),
-(3, 'employee@codeinsect.com', '$2y$10$M3ttjnzOV2lZSigBtP0NxuCtKRte70nc8TY5vIczYAQvfG/8syRze', 'Employee', '9890098900', 3, 0, 1, '2016-12-09 17:50:22', NULL, NULL),
-(4, 'milan@me.sk', '$2y$10$TDNDq3cvmyD3dewjpzmsjuAOrb9Yq7MmnCyWvE4vSuFFls4CI3eHm', 'Milan Cerny', '0904011975', 3, 0, 1, '2017-04-11 15:20:25', 1, '2017-04-11 15:21:17'),
-(5, 'TESTOVACI@xx.com', '$2y$10$1xKCQ0WZ3P0Yd86lfl.2zuJXUYa7hqZr9ojsF1uiiYkqkLc5f.AeC', 'Testovac', '0902113609', 2, 1, 1, '2017-04-26 15:16:18', 1, '2017-04-26 15:38:16');
+(1, 'admin@codeinsect.com', '$2y$10$WQQRBQDkxV/98bqK.24Dp.uMVS6KcztVqdwwTrOBLIWLSeSqE2gii', 'Milanko Cerny', '9890098900', 1, 0, 0, '2015-07-01 00:00:00', 1, '2017-03-03 00:00:00'),
+(2, 'manager@codeinsect.com', '$2y$10$quODe6vkNma30rcxbAHbYuKYAZQqUaflBgc4YpV9/90ywd.5Koklm', 'Manager', '9890098900', 2, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00'),
+(3, 'employee@codeinsect.com', '$2y$10$M3ttjnzOV2lZSigBtP0NxuCtKRte70nc8TY5vIczYAQvfG/8syRze', 'Employee', '9890098900', 3, 0, 1, '2016-12-09 00:00:00', NULL, NULL),
+(4, 'milan@me.sk', '$2y$10$TDNDq3cvmyD3dewjpzmsjuAOrb9Yq7MmnCyWvE4vSuFFls4CI3eHm', 'Milan Cerny', '0904011975', 3, 0, 1, '2017-04-11 00:00:00', 1, '2017-04-11 00:00:00'),
+(5, 'TESTOVACI@xx.com', '$2y$10$1xKCQ0WZ3P0Yd86lfl.2zuJXUYa7hqZr9ojsF1uiiYkqkLc5f.AeC', 'Testovac', '0902113609', 2, 1, 1, '2017-04-26 00:00:00', 1, '2017-04-26 00:00:00');
 
 --
 -- Indexes for dumped tables

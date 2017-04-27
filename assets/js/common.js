@@ -29,40 +29,44 @@ jQuery(document).ready(function() {
     }
   });
 
+  var taskId,
+    hitURL,
+    currentRow;
   jQuery(document).on("click", ".deleteTask", function() {
-    var taskId = $(this).data("taskid"),
-      hitURL = baseURL + "deleteTask",
-      currentRow = $(this);
+    taskId = $(this).data("taskid");
+    hitURL = baseURL + "deleteTask";
+    currentRow = $(this);
 
     $('#myModal').modal('show');
-
-    $('#deleteBtn').click(function() {
-      jQuery.ajax({
-        type: "POST",
-        dataType: "json",
-        url: hitURL,
-        data: {
-          taskId: taskId
-        }
-      }).done(function(data) {
-		console.log(data);
-        currentRow.parents('tr').remove();
-        if (data.status === true) {
-          console.log("Task successfully deleted");
-          window.location.reload(true);
-        } else if (data.status === false) {
-          console.log("Task deletion failed");
-          window.location.reload(true);
-        } else {
-          $('#myModal').modal('hide');
-          alert("Access denied..!");
-        }
-      }).fail(function() {
-        alert("error");
-      });
-    });
   });
 
+  $('#deleteBtn').click(function() {
+    jQuery.ajax({
+      type: "POST",
+      dataType: "json",
+      url: hitURL,
+      data: {
+        taskId: taskId
+      }
+    }).done(function(data) {
+      console.log(data);
+      currentRow.parents('tr').remove();
+      if (data.status === true) {
+        console.log("Task successfully deleted");
+        $('#myModal').modal('hide');
+        window.location.reload(true);
+      } else if (data.status === false) {
+        console.log("Task deletion failed");
+        $('#myModal').modal('hide');
+        window.location.reload(true);
+      } else {
+        $('#myModal').modal('hide');
+        alert("Access denied..!");
+      }
+    }).fail(function() {
+      alert("error");
+    });
+  });
 
   jQuery(document).on("click", ".searchList", function() {});
 

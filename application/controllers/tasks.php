@@ -87,7 +87,7 @@ class Tasks extends BaseController {
                                     'createdBy'=>$createdBy, 'updatedBy'=>$updatedBy, 'isDeleted' => 0, 'isCompleted' => 0);
                 #'createdDate'=>date('Y-m-d'), 'updatedDate'=>date('Y-m-d'),
                 
-                print_r($userInfo);
+                //print_r($userInfo);
                 $this->load->model('tasks_model');
                 $result = $this->tasks_model->createNewTask($userInfo);
                 
@@ -126,7 +126,68 @@ class Tasks extends BaseController {
         }
     }
 
+    /**
+     * This function is used load task edit information
+     * @param number $taskId : Optional : This is taskId
+     */
+    function loadOldTask($taskId = NULL) {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        } else {
+            if($taskId == null) {
+                redirect('taskManagment');
+            }
+            $data["solvers"] = $this->tasks_model->getSolvers();
+            $data['taskInfo'] = $this->tasks_model->getTaskInfo($taskId);
+            
+            $this->global['pageTitle'] = 'FakeTaxi : Edit Task';
+            
+            $this->loadViews("editOldTask", $this->global, $data, NULL);
+        }
+    }
 
+    /**
+     * This function is used to update the task information
+     */
+    function updateTask() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        } else {
+            $this->load->library('form_validation');
+            
+            $taskId = $this->input->post('taskId');
+    
+            $this->form_validation->set_rules('fsubject','Subject','trim|required|max_length[255]|xss_clean');
+            $this->form_validation->set_rules('fdes','Description','trim|required|max_length[255]|xss_clean');
+            $this->form_validation->set_rules('dueDate','Due date','required|max_length[20]|xss_clean');
+            $this->form_validation->set_rules('solver','Solver','trim|required|numeric');
+            
+            if($this->form_validation->run() == FALSE) {
+                $this->loadOldTask($taskId);
+            } else {
+                $subject = ucwords(strtolower($this->input->post('fsubject')));
+                $description = $this->input->post('fdes');
+                $dueDate = $this->input->post('dueDate');
+                $solver = $this->input->post('solver');
+                
+                $updatedBy = $this->global['userId'];
+                
+                $taskInfo = array('subject'=>$subject, 'description'=>$description, 'dueDate'=>$dueDate, 'userId'=> $solver,
+                                    'updatedBy'=>$updatedBy);
+                
+                $this->load->model('tasks_model');
+                $result = $this->tasks_model->updateTask($taskId, $taskInfo);
+                
+                if($result == true) {
+                    $this->session->set_flashdata('success', 'Task was updated successfully');
+                } else {
+                    $this->session->set_flashdata('error', 'Task update failed');
+                }
+                
+                redirect('taskManagment');
+            }
+        }
+    }
 
     function pageNotFound() {
         $this->global['pageTitle'] = 'CodeInsect : 404 - Page Not Found';

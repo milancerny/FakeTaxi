@@ -24,8 +24,9 @@ class Tasks_model extends CI_Model {
     }
 
     function getAllTasksCount() {
-        $this->db->select('t.taskId, t.userId, t.subject, t.description, t.dueDate, t.isCompleted');
+        $this->db->select('t.taskId, t.userId, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted');
         $this->db->from('tbl_task t');
+        $this->db->where('t.isDeleted !=', 1);
         $query = $this->db->get();
 
         return count($query->result());
@@ -86,6 +87,34 @@ class Tasks_model extends CI_Model {
         $this->db->update('tbl_task', $userInfo);
         
         return $this->db->affected_rows();
+    }
+    
+    /**
+     * This function used to get task information by taskId
+     * @param number $taskId : This is task id
+     * @return array $result : This is task information
+     */
+    function getTaskInfo($taskId) {
+        $this->db->select('t.taskId, t.subject, t.description, t.dueDate, t.userId, u.name');
+        $this->db->from('tbl_task t');
+        $this->db->join('tbl_users as u', 't.userId=u.userId','left');
+        $this->db->where('t.isDeleted', 0);
+        $this->db->where('t.taskId', $taskId);
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+
+    /**
+     * This function is used to update the task information
+     * @param array $taskInfo : This is task updated information
+     * @param number $taskId : This is task id
+     */
+    function updateTask($taskId, $taskInfo) {
+        $this->db->where('taskId', $taskId);
+        $this->db->update('tbl_task', $taskInfo);
+        
+        return TRUE;
     }
 
     

@@ -76,5 +76,8 @@ $route['createTask'] = "tasks/createTask";
 
 $route['createNewTask'] = "tasks/createNewTask";
 $route['deleteTask'] = "tasks/deleteTask";
+$route['loadOldTask'] = "tasks/loadOldTask";
+$route['loadOldTask/(:num)'] = "tasks/loadOldTask/$1";
+$route['updateTask'] = "tasks/updateTask";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
