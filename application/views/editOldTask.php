@@ -42,8 +42,8 @@
                             <div class="row">
                                 <div class="col-md-6">                                
                                     <div class="form-group">
-                                        <label for="fsubject">Task ID</label>
-                                        <input type="text" class="form-control required" id="fsubject" value="<?php echo $taskId; ?>" name="fsubject" maxlength="255" disabled>
+                                        <label for="taskId">Task ID</label>
+                                        <input type="text" class="form-control required" id="taskId" value="<?php echo $taskId; ?>" name="taskId" maxlength="255" readonly>
                                     </div>
                                 </div>
                             </div>

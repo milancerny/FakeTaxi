@@ -155,7 +155,7 @@ class Tasks extends BaseController {
         } else {
             $this->load->library('form_validation');
             
-            $taskId = $this->input->post('taskId');
+           
     
             $this->form_validation->set_rules('fsubject','Subject','trim|required|max_length[255]|xss_clean');
             $this->form_validation->set_rules('fdes','Description','trim|required|max_length[255]|xss_clean');
@@ -165,6 +165,8 @@ class Tasks extends BaseController {
             if($this->form_validation->run() == FALSE) {
                 $this->loadOldTask($taskId);
             } else {
+                $taskId = $this->input->post('taskId');
+
                 $subject = ucwords(strtolower($this->input->post('fsubject')));
                 $description = $this->input->post('fdes');
                 $dueDate = $this->input->post('dueDate');
@@ -174,7 +176,7 @@ class Tasks extends BaseController {
                 
                 $taskInfo = array('subject'=>$subject, 'description'=>$description, 'dueDate'=>$dueDate, 'userId'=> $solver,
                                     'updatedBy'=>$updatedBy);
-                
+
                 $this->load->model('tasks_model');
                 $result = $this->tasks_model->updateTask($taskId, $taskInfo);
                 
