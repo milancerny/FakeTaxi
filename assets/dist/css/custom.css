@@ -23,11 +23,11 @@ hr.task {
 }
 
 .inspire {
-    color: #1e282c;
+    /*color: #1e282c;*/
     text-shadow: 0px 2px 3px #000;
-    position: fixed;
+    position: relative;
     bottom: 0;
-    letter-spacing: 5px;
+    letter-spacing: 10px;
 }
 
 .datepicker-icon-background {

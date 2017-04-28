@@ -46,8 +46,8 @@ class Tasks_model extends CI_Model {
     function getAllTasks($page, $segment) {
         $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted');
         $this->db->from('tbl_task t');
-        $this->db->join('tbl_users as u', 't.userId=u.userId','left');
-        $this->db->where('t.isDeleted !=', 1); //show only valid tasks
+        $this->db->join('tbl_users as u', 't.userId=u.userId','left');   
+        $this->db->where('t.isDeleted !=', 1); //show only valid tasks 
         $this->db->limit($page, $segment);
         $query = $this->db->get();
 

@@ -16,6 +16,7 @@
          folder instead of downloading all of them to reduce the load. -->
     <link href="<?php echo base_url(); ?>assets/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
     <style>
+    /*_all-skins*/
     	.error{
     		color:red;
     		font-weight: normal;
@@ -147,9 +148,12 @@
                 <span>Reports</span>
               </a>
             </li>
+
+            <li class="header" style="position: fixed; bottom: 0; width: 230px;">
+              <h1 class="inspire">Pornhub</h1>
+            </li>
             <?php } ?>
           </ul>
         </section>
         <!-- /.sidebar -->
-        <h1 class="inspire">Pornhub</h1>
       </aside>

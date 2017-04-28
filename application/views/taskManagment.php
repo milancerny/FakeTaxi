@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            <i class="fa fa-pencil"></i> Task managment
+            <i class="fa fa-pencil"></i> Task Managment
             <small>create, update, delete</small>
         </h1>
     </section>
@@ -50,10 +50,10 @@
               <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Tasks List</h3>
-                    <div class="box-tools">
-                        <form action="<?php echo base_url() ?>userListing" method="POST" id="searchList">
+                    <div class="box-tools" style="visibility: hidden;">
+                        <form action="<?php echo base_url() ?>taskManagment" method="POST" id="searchList">
                             <div class="input-group">
-                              <input type="text" name="searchText" value="<?php echo $searchText; ?>" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
+                              <input type="hidden" name="searchText" value="<?php echo $searchText; ?>" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
                               <div class="input-group-btn">
                                 <button class="btn btn-sm btn-default searchList" style="height: 30px;">
                                     <i class="fa fa-search"></i>
@@ -66,13 +66,13 @@
                 <div class="box-body table-responsive no-padding">
                   <table class="table table-hover">
                     <tr>
-                      <th class="text-center" style="width: 100px;">Completed</th>
-                      <th>Id</th>
-                      <th style="width: 115px;">Solver</th>
-                      <th style="width: 215px;">Subject</th>
-                      <th>Description</th>
-                      <th style="width: 105px;">Due date</th>
-                      <th class="text-center">Actions</th>
+                      <th class="text-center" style="width: 6%;">Completed</th>
+                      <th style="width: 3%;">Id</th>
+                      <th style="width: 9%;">Solver</th>
+                      <th style="width: 13%;">Subject</th>
+                      <th style="width: 54%;">Description</th>
+                      <th style="width: 6%;">Due date</th>
+                      <th class="text-center" style="width: 1%;">Actions</th>
                     </tr>
                     <?php
                     if(!empty($taskData))

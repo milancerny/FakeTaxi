@@ -35,7 +35,7 @@ class Tasks extends BaseController {
                 
             $this->load->library('pagination');
                 
-            //$count = $this->user_model->userListingCount($searchText);
+            //$count = $this->tasks_model->getAllTasksCount($searchText);
             $count = $this->tasks_model->getAllTasksCount();
             $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
             $data['taskData'] = $this->tasks_model->getAllTasks($returns["page"], $returns["segment"]);
@@ -141,7 +141,7 @@ class Tasks extends BaseController {
             $data['taskInfo'] = $this->tasks_model->getTaskInfo($taskId);
 
             foreach($data['taskInfo'] as $record) {
-                if($record->isCompleted == 1) { // if task is completed, edit us blocked
+                if($record->isCompleted == 1) {
                     redirect('taskManagment');
                 }
             }
