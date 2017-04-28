@@ -139,9 +139,14 @@ class Tasks extends BaseController {
             }
             $data["solvers"] = $this->tasks_model->getSolvers();
             $data['taskInfo'] = $this->tasks_model->getTaskInfo($taskId);
-            
+
+            foreach($data['taskInfo'] as $record) {
+                if($record->isCompleted == 1) { // if task is completed, edit us blocked
+                    redirect('taskManagment');
+                }
+            }
+
             $this->global['pageTitle'] = 'FakeTaxi : Edit Task';
-            
             $this->loadViews("editOldTask", $this->global, $data, NULL);
         }
     }

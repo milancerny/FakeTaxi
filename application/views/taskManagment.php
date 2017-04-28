@@ -66,12 +66,12 @@
                 <div class="box-body table-responsive no-padding">
                   <table class="table table-hover">
                     <tr>
-                      <th class="text-center">Completed</th>
+                      <th class="text-center" style="width: 100px;">Completed</th>
                       <th>Id</th>
-                      <th>Solver</th>
-                      <th>Subject</th>
+                      <th style="width: 115px;">Solver</th>
+                      <th style="width: 215px;">Subject</th>
                       <th>Description</th>
-                      <th>Due date</th>
+                      <th style="width: 105px;">Due date</th>
                       <th class="text-center">Actions</th>
                     </tr>
                     <?php
@@ -81,20 +81,24 @@
                         {
                     ?>
                     <tr>
-                      <td style="text-align: center"><?php if ($record->isCompleted == 0){ ?>
+                      <td style="text-align: center">
+                      <?php if ($record->isCompleted == 0){ ?>
                           <i class="fa fa-times color-darkred"></i>
                       <?php } else { ?>
                           <i class="fa fa-check color-green"></i>
                       <?php } ?></td>
+
                       <td><?php echo $record->taskId ?></td>
-                      <td style="width: 115px;"><?php echo $record->name ?></td>
-                      <td style="width: 215px;"><?php echo htmlspecialchars($record->subject, ENT_QUOTES, 'UTF-8'); ?></td>
+                      <td><?php echo $record->name ?></td>
+                      <td><?php echo htmlspecialchars($record->subject, ENT_QUOTES, 'UTF-8'); ?></td>
                       <td style="white-space: pre-wrap;"><?php echo htmlspecialchars($record->description, ENT_QUOTES, 'UTF-8'); ?></td>
-                      <td style="width: 105px;"><?php echo $record->dueDate ?></td>
+                      <td><?php echo $record->dueDate ?></td>
                       <td class="text-center">
+                          <?php if ($record->isCompleted == 0){ ?>
                           <a class="btn btn-sm btn-info" href="<?php echo base_url().'loadOldTask/'.$record->taskId; ?>">
                             <i class="fa fa-pencil"></i>
                           </a>
+                          <?php } ?>
                           <?php if($role == ROLE_ADMIN) { ?>
                           <a class="btn btn-sm btn-danger deleteTask" href="#" data-toggle="modal" data-taskid="<?php echo $record->taskId; ?>"><i class="fa fa-trash"></i></a>
                           <?php } ?>
