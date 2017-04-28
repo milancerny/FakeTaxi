@@ -9,11 +9,43 @@
     <br>
     <section class="content">
         <div class="row">
+            <div class="col-md-4">
+                <?php
+                    $this->load->helper('form');
+                    $error = $this->session->flashdata('error');
+                    if($error)
+                    {
+                ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('error'); ?>                    
+                </div>
+                <?php } ?>
+                <?php  
+                    $success = $this->session->flashdata('success');
+                    if($success)
+                    {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('success'); ?>
+                </div>
+                <?php } ?>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
 
             <?php 
                 if(!empty($taskData)) {
                     foreach($taskData as $record) {
             ?>     
+            <form action="<?php echo base_url() ?>successTask" method="post" role="form" id="#">
             <div class="col-md-4 col-md-offset-1 task-box">
                 <button type="button" class="close" aria-label="Close" title="Delete task">
                     <span aria-hidden="true">&times;</span>
@@ -30,7 +62,12 @@
                 </p>
                 <br>
                 <div>
-                    <a class="btn btn-success btn-lg" href="#">Success</a>
+                    
+                        <div class="input-group">
+                            <input type="text" value="<?php echo $record->taskId; ?>" id="taskId" />
+                        </div>
+                        <a class="btn btn-success btn-lg" href="<?php echo base_url().'successTask/'.$record->taskId; ?>">Success</a>
+                    </form>
                 </div>
             </div>
             <?php }} ?>

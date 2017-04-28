@@ -79,5 +79,7 @@ $route['deleteTask'] = "tasks/deleteTask";
 $route['loadOldTask'] = "tasks/loadOldTask";
 $route['loadOldTask/(:num)'] = "tasks/loadOldTask/$1";
 $route['updateTask'] = "tasks/updateTask";
+$route['successTask'] = "tasks/successTask";
+$route['successTask/(:num)'] = "tasks/successTask/$1";
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

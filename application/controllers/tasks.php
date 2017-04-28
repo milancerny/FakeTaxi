@@ -155,8 +155,6 @@ class Tasks extends BaseController {
         } else {
             $this->load->library('form_validation');
             
-           
-    
             $this->form_validation->set_rules('fsubject','Subject','trim|required|max_length[255]|xss_clean');
             $this->form_validation->set_rules('fdes','Description','trim|required|max_length[255]|xss_clean');
             $this->form_validation->set_rules('dueDate','Due date','required|max_length[20]|xss_clean');
@@ -189,6 +187,23 @@ class Tasks extends BaseController {
                 redirect('taskManagment');
             }
         }
+    }
+
+    function successTask() {
+        $taskId = $this->input->post('taskId');
+        $taskInfo = array('isCompleted'=>1);
+
+        echo $taskId;
+        //print_r($taskInfo);
+        //$this->load->model('tasks_model');
+        //$result = $this->tasks_model->updateTask($taskId, $taskInfo);
+                
+        // if($result == true) {
+        //     $this->session->set_flashdata('success', 'Task was updated successfully');
+        // } else {
+        //     $this->session->set_flashdata('error', 'Task update failed');
+        // }        
+        //redirect('tasks');
     }
 
     function pageNotFound() {
