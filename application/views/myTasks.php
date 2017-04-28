@@ -9,7 +9,7 @@
     <br>
     <section class="content">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 pull-right">
                 <?php
                     $this->load->helper('form');
                     $error = $this->session->flashdata('error');
@@ -46,30 +46,28 @@
                     foreach($taskData as $record) {
             ?>     
             <form action="<?php echo base_url() ?>successTask" method="post" role="form" id="#">
-            <div class="col-md-4 col-md-offset-1 task-box">
-                <button type="button" class="close" aria-label="Close" title="Delete task">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <br>
-                
-                <div style="width: 64%">
-                    <h3 class="inline"><i class="fa fa-paperclip" aria-hidden="true"></i> <?php echo htmlspecialchars($record->subject, ENT_QUOTES, 'UTF-8'); ?></h3>
-                </div>
-                <p class="inline pull-right">Due date: <small><?php echo $record->dueDate; ?></small></p>
-                <hr class="task">
-                <p>
-                    <?php echo htmlspecialchars($record->description, ENT_QUOTES, 'UTF-8'); ?>
-                </p>
-                <br>
-                <div>
+                <div class="col-md-4 col-md-offset-1 task-box">
+                    <button type="button" class="close" aria-label="Close" title="Delete task">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <br>
                     
-                        <div class="input-group">
-                            <input type="text" value="<?php echo $record->taskId; ?>" id="taskId" />
-                        </div>
-                        <a class="btn btn-success btn-lg" href="<?php echo base_url().'successTask/'.$record->taskId; ?>">Success</a>
-                    </form>
+                    <div style="width: 64%">
+                        <h3 class="inline"><i class="fa fa-paperclip" aria-hidden="true"></i> <?php echo htmlspecialchars($record->subject, ENT_QUOTES, 'UTF-8'); ?></h3>
+                    </div>
+                    <p class="inline pull-right">Due date: <small><?php echo $record->dueDate; ?></small></p>
+                    <hr class="task">
+                    <p>
+                        <?php echo htmlspecialchars($record->description, ENT_QUOTES, 'UTF-8'); ?>
+                    </p>
+                    <br>
+                        
+                    <div class="input-group">
+                        <input type="hidden" value="<?php echo $record->taskId; ?>" id="taskId" name="taskId" />
+                    </div>
+                    <input type="submit" class="btn btn-success btn-lg" value="Success" />
                 </div>
-            </div>
+            </form>
             <?php }} ?>
         </div>
     </section>

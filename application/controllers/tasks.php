@@ -193,17 +193,17 @@ class Tasks extends BaseController {
         $taskId = $this->input->post('taskId');
         $taskInfo = array('isCompleted'=>1);
 
-        echo $taskId;
+        // print_r("AAA".$taskId);
         //print_r($taskInfo);
-        //$this->load->model('tasks_model');
-        //$result = $this->tasks_model->updateTask($taskId, $taskInfo);
+        $this->load->model('tasks_model');
+        $result = $this->tasks_model->updateTask($taskId, $taskInfo);
                 
-        // if($result == true) {
-        //     $this->session->set_flashdata('success', 'Task was updated successfully');
-        // } else {
-        //     $this->session->set_flashdata('error', 'Task update failed');
-        // }        
-        //redirect('tasks');
+        if($result == true) {
+            $this->session->set_flashdata('success', 'Task was updated successfully');
+        } else {
+            $this->session->set_flashdata('error', 'Task update failed');
+        }        
+        redirect('tasks');
     }
 
     function pageNotFound() {

@@ -48,7 +48,7 @@
               <div class="small-box bg-red">
                 <div class="inner">
                   <h3><?php echo $myActiveTasks ?></h3>
-                  <p>My Tasks</p>
+                  <p>My Active Tasks</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-android-clipboard"></i>

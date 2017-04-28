@@ -7,6 +7,7 @@ class Tasks_model extends CI_Model {
         $this->db->from('tbl_task');
         $this->db->where('tbl_task.userId', $userId);
         $this->db->where('isDeleted !=', 1); //TEST !! show only valid tasks
+        $this->db->where('isCompleted !=', 1);
         $query = $this->db->get();
 
         return $query->result();
@@ -18,6 +19,7 @@ class Tasks_model extends CI_Model {
         $this->db->from('tbl_task');
         $this->db->where('tbl_task.userId', $userId);
         $this->db->where('isDeleted !=', 1); //TEST !! show only valid tasks
+        $this->db->where('isCompleted !=', 1);
         $query = $this->db->get();
 
         return count($query->result());
