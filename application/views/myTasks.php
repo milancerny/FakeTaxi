@@ -68,7 +68,13 @@
                     <input type="submit" class="btn btn-success btn-lg" value="Success" />
                 </div>
             </form>
-            <?php }} ?>
+            <?php }} else { ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-center" style="font-size: 2em; color: #716565;">You have no active task.</p>
+                </div>
+            </div>
+            <?php } ?>
         </div>
     </section>
 </div>

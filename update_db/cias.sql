@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 27, 2017 at 04:01 PM
+-- Generation Time: May 02, 2017 at 04:03 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -19,6 +19,66 @@ SET time_zone = "+00:00";
 --
 -- Database: `cias`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_car_detail`
+--
+
+CREATE TABLE `tbl_car_detail` (
+  `id` int(11) NOT NULL,
+  `createdDate` date NOT NULL,
+  `createdBy` int(11) NOT NULL,
+  `updatedDate` date NOT NULL,
+  `updatedBy` int(11) NOT NULL,
+  `EVC` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `VIN` varchar(17) CHARACTER SET utf8 NOT NULL,
+  `totalCountKm` int(11) NOT NULL,
+  `driverId` int(11) NOT NULL,
+  `createdByUserId` int(11) NOT NULL,
+  `updatedByUserId` int(11) NOT NULL,
+  `color` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `carSubTypeId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_car_repair`
+--
+
+CREATE TABLE `tbl_car_repair` (
+  `id` int(11) NOT NULL,
+  `totalCountRepair` int(11) NOT NULL,
+  `discarded` int(11) NOT NULL DEFAULT '0',
+  `nextTour` date DEFAULT NULL,
+  `lastTour` date NOT NULL,
+  `carDetailId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_car_sub_type`
+--
+
+CREATE TABLE `tbl_car_sub_type` (
+  `id` int(11) NOT NULL,
+  `subType` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `carTypeId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_car_type`
+--
+
+CREATE TABLE `tbl_car_type` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
 -- --------------------------------------------------------
 
@@ -92,10 +152,10 @@ CREATE TABLE `tbl_task` (
 --
 
 INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdBy`, `updatedBy`, `createdDate`, `updatedDate`, `isDeleted`, `isCompleted`, `userId`) VALUES
-(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30', 1, 1, '2017-04-21 15:29:21', '2017-04-27 00:00:00', 0, 0, 4),
-(2, 'TESTIK PRE DVA ', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26', 1, 1, '2017-04-21 22:21:52', '2017-04-27 00:00:00', 0, 0, 4),
+(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30', 1, 1, '2017-04-21 15:29:21', '2017-04-27 00:00:00', 0, 1, 1),
+(2, 'Testik Pre Dva 222', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26', 1, 1, '2017-04-21 22:21:52', '2017-04-27 00:00:00', 0, 1, 1),
 (3, 'Test Create', 'testujem vytvorenie po prve', '2017-04-30', 1, 1, '2017-04-26 00:37:55', '2017-04-27 00:00:00', 0, 0, 4),
-(4, 'Test Redirect', 'TEST REDIRECT', '2017-05-12', 1, 1, '2017-04-26 00:44:20', '2017-04-26 00:00:00', 0, 1, 2),
+(4, 'Test Redirect 21', 'TEST REDIRECT', '2017-05-12', 1, 1, '2017-04-26 00:44:20', '2017-04-26 00:00:00', 0, 1, 2),
 (5, 'Tasky Na Zajtra', '- pri create task due date calendar\r\n- vylistovanie vsetkych taskov nahradit ciselnu hodnotu ikonou\r\n- premyslet ci chcem pri tasku obrazok\r\n- dokoncit update / delete tasku', '2017-04-26', 2, 1, '2017-04-26 00:59:04', '2017-04-26 00:00:00', 0, 0, 4),
 (6, 'Testovanie S Datepickerom', 'testujem veselo o sto sest', '2017-04-30', 1, 1, '2017-04-26 10:32:31', '2017-04-26 10:32:31', 0, 0, 4),
 (7, '<b>test Xss</b>', 'testujeme <b>XSS</b>', '2017-05-01', 1, 1, '2017-04-26 11:09:00', '2017-04-26 00:00:00', 0, 0, 4),
@@ -121,23 +181,49 @@ CREATE TABLE `tbl_users` (
   `createdBy` int(11) NOT NULL,
   `createdDtm` datetime NOT NULL,
   `updatedBy` int(11) DEFAULT NULL,
-  `updatedDtm` datetime DEFAULT NULL
+  `updatedDtm` datetime DEFAULT NULL,
+  `superior` int(11) DEFAULT NULL COMMENT 'nadriaddeny'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `tbl_users`
 --
 
-INSERT INTO `tbl_users` (`userId`, `email`, `password`, `name`, `mobile`, `roleId`, `isDeleted`, `createdBy`, `createdDtm`, `updatedBy`, `updatedDtm`) VALUES
-(1, 'admin@codeinsect.com', '$2y$10$WQQRBQDkxV/98bqK.24Dp.uMVS6KcztVqdwwTrOBLIWLSeSqE2gii', 'Milanko Cerny', '9890098900', 1, 0, 0, '2015-07-01 00:00:00', 1, '2017-03-03 00:00:00'),
-(2, 'manager@codeinsect.com', '$2y$10$quODe6vkNma30rcxbAHbYuKYAZQqUaflBgc4YpV9/90ywd.5Koklm', 'Manager', '9890098900', 2, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00'),
-(3, 'employee@codeinsect.com', '$2y$10$M3ttjnzOV2lZSigBtP0NxuCtKRte70nc8TY5vIczYAQvfG/8syRze', 'Employee', '9890098900', 3, 0, 1, '2016-12-09 00:00:00', NULL, NULL),
-(4, 'milan@me.sk', '$2y$10$TDNDq3cvmyD3dewjpzmsjuAOrb9Yq7MmnCyWvE4vSuFFls4CI3eHm', 'Milan Cerny', '0904011975', 3, 0, 1, '2017-04-11 00:00:00', 1, '2017-04-11 00:00:00'),
-(5, 'TESTOVACI@xx.com', '$2y$10$1xKCQ0WZ3P0Yd86lfl.2zuJXUYa7hqZr9ojsF1uiiYkqkLc5f.AeC', 'Testovac', '0902113609', 2, 1, 1, '2017-04-26 00:00:00', 1, '2017-04-26 00:00:00');
+INSERT INTO `tbl_users` (`userId`, `email`, `password`, `name`, `mobile`, `roleId`, `isDeleted`, `createdBy`, `createdDtm`, `updatedBy`, `updatedDtm`, `superior`) VALUES
+(1, 'admin@codeinsect.com', '$2y$10$WQQRBQDkxV/98bqK.24Dp.uMVS6KcztVqdwwTrOBLIWLSeSqE2gii', 'Milanko Cerny', '9890098900', 1, 0, 0, '2015-07-01 00:00:00', 1, '2017-03-03 00:00:00', NULL),
+(2, 'manager@codeinsect.com', '$2y$10$quODe6vkNma30rcxbAHbYuKYAZQqUaflBgc4YpV9/90ywd.5Koklm', 'Manager', '9890098900', 2, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', 1),
+(3, 'employee@codeinsect.com', '$2y$10$M3ttjnzOV2lZSigBtP0NxuCtKRte70nc8TY5vIczYAQvfG/8syRze', 'Employee', '9890098900', 3, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', NULL),
+(4, 'milan@me.sk', '$2y$10$TDNDq3cvmyD3dewjpzmsjuAOrb9Yq7MmnCyWvE4vSuFFls4CI3eHm', 'Milan Cerny', '0904011975', 3, 0, 1, '2017-04-11 00:00:00', 1, '2017-04-11 00:00:00', 2),
+(5, 'TESTOVACI@xx.com', '$2y$10$1xKCQ0WZ3P0Yd86lfl.2zuJXUYa7hqZr9ojsF1uiiYkqkLc5f.AeC', 'Testovac', '0902113609', 2, 1, 1, '2017-04-26 00:00:00', 1, '2017-04-26 00:00:00', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `tbl_car_detail`
+--
+ALTER TABLE `tbl_car_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_car_repair`
+--
+ALTER TABLE `tbl_car_repair`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `carDetailId` (`carDetailId`);
+
+--
+-- Indexes for table `tbl_car_sub_type`
+--
+ALTER TABLE `tbl_car_sub_type`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_car_type`
+--
+ALTER TABLE `tbl_car_type`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `tbl_reset_password`
@@ -167,6 +253,26 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `tbl_car_detail`
+--
+ALTER TABLE `tbl_car_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_car_repair`
+--
+ALTER TABLE `tbl_car_repair`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_car_sub_type`
+--
+ALTER TABLE `tbl_car_sub_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `tbl_car_type`
+--
+ALTER TABLE `tbl_car_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tbl_reset_password`
 --

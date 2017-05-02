@@ -112,6 +112,12 @@
                 <span>Tasks managment</span>
               </a>
             </li>
+            <li class="treeview">
+              <a href="<?php echo base_url(); ?>" >
+                <i class="fa fa-car"></i>
+                <span>Cars managment</span>
+              </a>
+            </li>
             <?php } ?>
 
             <li class="treeview">

@@ -25,15 +25,6 @@ class Tasks_model extends CI_Model {
         return count($query->result());
     }
 
-    function getAllTasksCount() {
-        $this->db->select('t.taskId, t.userId, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted');
-        $this->db->from('tbl_task t');
-        $this->db->where('t.isDeleted !=', 1);
-        $query = $this->db->get();
-
-        return count($query->result());
-    }
-
     function getCompletedTasksCount() {
         $this->db->select('t.taskId, t.userId, t.subject, t.description, t.dueDate, t.isCompleted');
         $this->db->from('tbl_task t');
@@ -43,15 +34,27 @@ class Tasks_model extends CI_Model {
         return count($query->result());
     }
 
-    function getAllTasks($page, $segment) {
-        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted');
+    function getAllTasks($page, $segment, $userId) {
+        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
         $this->db->from('tbl_task t');
         $this->db->join('tbl_users as u', 't.userId=u.userId','left');   
-        $this->db->where('t.isDeleted !=', 1); //show only valid tasks 
+        $this->db->where('t.isDeleted !=', 1); //show only valid getAllTasks
+        $this->db->where('u.superior', $userId);
         $this->db->limit($page, $segment);
         $query = $this->db->get();
 
         return $query->result();
+    }
+
+    function getAllTasksCount($userId) {
+        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
+        $this->db->from('tbl_task t');
+        $this->db->join('tbl_users as u', 't.userId=u.userId','left'); 
+        $this->db->where('t.isDeleted !=', 1);
+        $this->db->where('u.superior', $userId);
+        $query = $this->db->get();
+
+        return count($query->result());
     }
 
     function getSolvers() {

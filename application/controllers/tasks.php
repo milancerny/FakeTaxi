@@ -36,9 +36,15 @@ class Tasks extends BaseController {
             $this->load->library('pagination');
                 
             //$count = $this->tasks_model->getAllTasksCount($searchText);
-            $count = $this->tasks_model->getAllTasksCount();
+            $count = $this->tasks_model->getAllTasksCount($this->global['userId']);
             $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
-            $data['taskData'] = $this->tasks_model->getAllTasks($returns["page"], $returns["segment"]);
+            $data['taskData'] = $this->tasks_model->getAllTasks($returns["page"], $returns["segment"], $this->global['userId']);
+
+            // foreach($data['taskData'] as $record) {
+            //     if($record->isCompleted == 1) {
+            //         redirect('taskManagment');
+            //     }
+            // }
                 
             $this->loadViews('taskManagment', $this->global, $data , NULL);
         }
