@@ -34,7 +34,7 @@
               <div class="small-box bg-darkred">
                 <div class="inner">
                   <h3><?php echo $employeeCount ?></h3>
-                  <p>Employee Accounts</p>
+                  <p>Subordinate employee</p><!-- Employee Accounts -->
                 </div>
                 <div class="icon">
                   <i class="ion ion-person"></i>
@@ -62,7 +62,7 @@
               <div class="small-box bg-green">
                 <div class="inner">
                   <h3><?php echo $completedTasks ?>/<?php echo $allTasks ?></h3>
-                  <p>Copleted Tasks</p>
+                  <p>Copleted Tasks of my group</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>

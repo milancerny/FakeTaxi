@@ -20,11 +20,11 @@ class Dashboard extends BaseController {
 
 
         $data['managerCount'] = $this->dashboard_model->getManagerCounts();
-        $data['employeeCount'] = $this->dashboard_model->getEmployeeCounts();
+        $data['employeeCount'] = $this->dashboard_model->getEmployeeCounts($userId); //podriadeni zamestnanci
 
-        $data['allTasks'] = $this->tasks_model->getAllTasksCount();
-        $data['completedTasks'] = $this->tasks_model->getCompletedTasksCount();
-        $data['myActiveTasks'] = $this->tasks_model->getAllMyActiveTaskCount($userId);
+        $data['myActiveTasks'] = $this->tasks_model->getActiveTaskCount($userId);
+        $data['completedTasks'] = $this->tasks_model->getCompletedTasksCount($userId);
+        $data['allTasks'] = $this->tasks_model->getAllTasksCount($userId);
         
 
         $this->loadViews('dashboard', $this->global, $data , NULL);

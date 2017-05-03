@@ -19,7 +19,7 @@ class Tasks extends BaseController {
         $this->global['pageTitle'] = 'My open tasks';
         
         $userId = $this->global['userId'];
-        $data['taskData'] = $this->tasks_model->getAllMyActiveTask($userId);
+        $data['taskData'] = $this->tasks_model->getActiveTaskDetail($userId);
 
         $this->loadViews('myTasks', $this->global, $data , NULL);
     }

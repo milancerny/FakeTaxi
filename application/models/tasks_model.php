@@ -2,33 +2,80 @@
 
 class Tasks_model extends CI_Model {
 
-    function getAllMyActiveTask($userId) {
+    /**
+     * This function is used to get all user active tasks,
+     * used only  in task controller for show task detail in my task category
+     * @param number $userId : This is userId
+     * @return array $result : Task info
+     */
+    function getActiveTaskDetail($userId) {
         $this->db->select('*, isDeleted');
         $this->db->from('tbl_task');
         $this->db->where('tbl_task.userId', $userId);
-        $this->db->where('isDeleted !=', 1); //TEST !! show only valid tasks
+        $this->db->where('isDeleted !=', 1);
         $this->db->where('isCompleted !=', 1);
         $query = $this->db->get();
 
         return $query->result();
-        //SELECT * FROM tbl_task WHERE tbl_task.userId=$userId
+        //SELECT * FROM tbl_task WHERE tbl_task.userId=$userId AND isDeleted !=1 AND isCompleted != 1
     }
 
-    function getAllMyActiveTaskCount($userId) {
+    /**
+     * This function is used to get count of all user active tasks,
+     * used only  in dashboard controller for show task count
+     * @param number $userId : This is userId
+     * @return number $result : Active task count
+     */
+    function getActiveTaskCount($userId) {
         $this->db->select('*, isDeleted');
         $this->db->from('tbl_task');
         $this->db->where('tbl_task.userId', $userId);
-        $this->db->where('isDeleted !=', 1); //TEST !! show only valid tasks
+        $this->db->where('isDeleted !=', 1);
         $this->db->where('isCompleted !=', 1);
         $query = $this->db->get();
 
         return count($query->result());
     }
 
-    function getCompletedTasksCount() {
-        $this->db->select('t.taskId, t.userId, t.subject, t.description, t.dueDate, t.isCompleted');
+   /**
+     * This function is used to get count of all completed tasks e.g.(manager+employee),
+     * used only  in dashboard
+     * @param number $userId : This is userId
+     * @return number $result : Active task count
+     */
+    function getCompletedTasksCount($userId) {
+
+        $q = "SELECT t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior ".
+        "FROM tbl_task t JOIN tbl_users u ON t.userId=u.userId WHERE t.isDeleted !=1 AND t.isCompleted=1 AND (u.userId=".$userId." OR u.superior=".$userId.")";
+        
+        $query = $this->db->query($q); 
+        // $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
+        // $this->db->from('tbl_task t');
+        // $this->db->join('tbl_users u', 't.userId=u.userId','left'); 
+        // $this->db->where('t.isDeleted !=', 1);
+        // $this->db->where('t.isCompleted', 1);
+        // $this->db->where('u.superior', $userId);
+        // $this->db->where('u.userId', $userId);
+        // $query = $this->db->get();
+
+        return count($query->result());
+        // SELECT t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior FROM 
+        // tbl_task t JOIN tbl_users u ON t.userId=u.userId WHERE t.isDeleted !=1 AND t.isCompleted=1 AND (u.userId=2 OR u.superior=2)
+    }
+
+    /**
+     * This function is used to get count of all tasks e.g.(manager+employee),
+     * used in dashboard and task list as pagination
+     * @param number $userId : This is userId
+     * @return number $result : All tasks count. I and my employee
+     */
+    function getAllTasksCount($userId) {
+        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
         $this->db->from('tbl_task t');
-        $this->db->where('t.isCompleted', 1);
+        $this->db->join('tbl_users u', 't.userId=u.userId','left'); 
+        $this->db->where('t.isDeleted !=', 1);
+        $this->db->where('u.superior', $userId);
+        $this->db->or_where('u.userId', $userId);
         $query = $this->db->get();
 
         return count($query->result());
@@ -44,17 +91,6 @@ class Tasks_model extends CI_Model {
         $query = $this->db->get();
 
         return $query->result();
-    }
-
-    function getAllTasksCount($userId) {
-        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
-        $this->db->from('tbl_task t');
-        $this->db->join('tbl_users as u', 't.userId=u.userId','left'); 
-        $this->db->where('t.isDeleted !=', 1);
-        $this->db->where('u.superior', $userId);
-        $query = $this->db->get();
-
-        return count($query->result());
     }
 
     function getSolvers() {
