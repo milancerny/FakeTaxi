@@ -29,6 +29,7 @@ class Tasks extends BaseController {
             $this->loadThis();
         } else {
             $this->global['pageTitle'] = 'Task Managment';
+            $userId = $this->global['userId'];
 
             $searchText = $this->input->post('searchText');
             $data['searchText'] = $searchText;
@@ -36,16 +37,17 @@ class Tasks extends BaseController {
             $this->load->library('pagination');
                 
             //$count = $this->tasks_model->getAllTasksCount($searchText);
-            $count = $this->tasks_model->getAllTasksCount($this->global['userId']);
-            $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
-            $data['taskData'] = $this->tasks_model->getAllTasks($returns["page"], $returns["segment"], $this->global['userId']);
-
-            // foreach($data['taskData'] as $record) {
-            //     if($record->isCompleted == 1) {
-            //         redirect('taskManagment');
-            //     }
-            // }
-                
+            
+            if($this->isAdmin() != TRUE) {
+                $count = $this->tasks_model->getAllTasksCountAdmin($this->global['userId']);
+                $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
+                $data['taskData'] = $this->tasks_model->taskPreviewAdmin($returns["page"], $returns["segment"]);
+            } else {
+                $count = $this->tasks_model->getAllTasksCount($this->global['userId']);
+                $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
+                $data['taskData'] = $this->tasks_model->tasksPreview($returns["page"], $returns["segment"], $userId);
+            }   
+            
             $this->loadViews('taskManagment', $this->global, $data , NULL);
         }
     }
@@ -55,9 +57,13 @@ class Tasks extends BaseController {
             $this->loadThis();
         } else {
             $this->global['pageTitle'] = 'Create New Task';
+            $userId = $this->global['userId'];
 
-            $data["solvers"] = $this->tasks_model->getSolvers();
-
+            if($this->isAdmin() != TRUE) {
+                $data["solvers"] = $this->tasks_model->getSolversAdmin();
+            } else {
+                $data["solvers"] = $this->tasks_model->getSolvers($userId);
+            }
             $this->loadViews('createTask', $this->global, $data , NULL);
         }
     }

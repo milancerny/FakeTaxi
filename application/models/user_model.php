@@ -3,12 +3,11 @@
 class User_model extends CI_Model {
 
     /**
-     * This function is used to get the user listing count
+     * This function is used to get the all user listing count for only ADMIN 
      * @param string $searchText : This is optional search text
      * @return number $count : This is row count
      */
-    function userListingCount($searchText = '')
-    {
+    function userListingCountAdmin($searchText = '') {
         $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, Role.role');
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
@@ -37,7 +36,7 @@ class User_model extends CI_Model {
         
         return count($query->result());
     }
-    
+
     /**
      * This function is used to get the user listing count
      * @param string $searchText : This is optional search text
@@ -45,8 +44,7 @@ class User_model extends CI_Model {
      * @param number $segment : This is pagination limit
      * @return array $result : This is result
      */
-    function userListing($searchText = '', $page, $segment)
-    {
+    function userListingAdmin($searchText = '', $page, $segment) {
         $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, Role.role');
             $this->db->from('tbl_users as BaseTbl');
             $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
@@ -70,6 +68,141 @@ class User_model extends CI_Model {
                 $this->db->where(array(
                     'BaseTbl.isDeleted' => 0,
                     'BaseTbl.roleId !=' => 1));
+            }
+            $this->db->limit($page, $segment);
+            $query = $this->db->get();
+            
+            $result = $query->result();        
+            return $result;
+    }
+
+    /**
+     * This function is used to get the user listing count e.g. manager
+     * count only your subordinates
+     * @param string $searchText : This is optional search text
+     * @return number $count : This is row count
+     */
+    function userListingCount($searchText = '', $userId) {
+        $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, Role.role');
+        $this->db->from('tbl_users as BaseTbl');
+        $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
+        if(!empty($searchText)) {
+            $searchText= "%".$searchText."%";
+            $this->db->where(array(
+                    'BaseTbl.email LIKE' => $searchText,
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
+                
+                $this->db->or_where('BaseTbl.email LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId));
+
+                $this->db->or_where('BaseTbl.name LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
+
+                $this->db->or_where('BaseTbl.name LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId));
+
+
+                $this->db->or_where('BaseTbl.mobile LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
+                
+                $this->db->or_where('BaseTbl.mobile LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId));
+        } else {
+            $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId));
+
+            $this->db->or_where('BaseTbl.superior', $userId);
+            $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
+        }
+        $query = $this->db->get();
+        
+        return count($query->result());
+    }
+
+    /**
+     * This function is used to get the user listing 
+     * only your subordinates
+     * @param string $searchText : This is optional search text
+     * @param number $page : This is pagination offset
+     * @param number $segment : This is pagination limit
+     * @return array $result : This is result
+     */
+    function userListing($searchText = '', $page, $segment, $userId) {
+        $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, Role.role');
+            $this->db->from('tbl_users as BaseTbl');
+            $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId','left');
+            if(!empty($searchText)) {
+                $searchText= "%".$searchText."%";
+                $this->db->where(array(
+                    'BaseTbl.email LIKE' => $searchText,
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
+                
+                $this->db->or_where('BaseTbl.email LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId));
+
+                $this->db->or_where('BaseTbl.name LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
+
+                $this->db->or_where('BaseTbl.name LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId));
+
+
+                $this->db->or_where('BaseTbl.mobile LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
+                
+                $this->db->or_where('BaseTbl.mobile LIKE', $searchText);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId));
+            } else {
+                
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.userId' => $userId)); 
+
+                $this->db->or_where('BaseTbl.superior', $userId);
+                $this->db->where(array(
+                    'BaseTbl.isDeleted' => 0,
+                    'BaseTbl.roleId !=' => 1,
+                    'BaseTbl.superior' => $userId));
             }
             $this->db->limit($page, $segment);
             $query = $this->db->get();

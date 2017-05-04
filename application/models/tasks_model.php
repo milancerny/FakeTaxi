@@ -100,23 +100,50 @@ class Tasks_model extends CI_Model {
         return count($query->result());
     }
 
-    function getAllTasks($page, $segment, $userId) {
+    function tasksPreview($page, $segment, $userId) {
         $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
         $this->db->from('tbl_task t');
-        $this->db->join('tbl_users as u', 't.userId=u.userId','left');   
+        $this->db->join('tbl_users u', 't.userId=u.userId','left');   
         $this->db->where('t.isDeleted !=', 1); //show only valid getAllTasks
-        $this->db->where('u.superior', $userId);
+        $this->db->where('t.userId', $userId);
+        $this->db->or_where('u.superior', $userId);
+        $this->db->order_by("t.taskId", "asc");
         $this->db->limit($page, $segment);
         $query = $this->db->get();
 
         return $query->result();
     }
 
-    function getSolvers() {
+    function taskPreviewAdmin($page, $segment) { // all task previews
+        $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
+        $this->db->from('tbl_task t');
+        $this->db->join('tbl_users u', 't.userId=u.userId','left');   
+        $this->db->where('t.isDeleted !=', 1); //show only valid getAllTasks
+        $this->db->order_by("t.taskId", "asc");
+        $this->db->limit($page, $segment);
+        $query = $this->db->get();
+
+        return $query->result();
+    }
+
+
+    function getSolversAdmin() { // all users available
         $this->db->select('t.userId, t.name, t.roleId, r.role');
         $this->db->from('tbl_users t');
         $this->db->join('tbl_roles as r', 't.roleId=r.roleId','left');
         //$this->db->where('t.userId !=', 1);
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+
+    function getSolvers($userId) {
+        $this->db->select('u.userId, u.name, u.roleId, r.role');
+        $this->db->from('tbl_users u');
+        $this->db->join('tbl_roles r', 'u.roleId=r.roleId','left');
+        $this->db->where('u.userId', $userId);
+        $this->db->or_where('u.superior', $userId);
+
         $query = $this->db->get();
         
         return $query->result();

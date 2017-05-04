@@ -2,13 +2,11 @@
 
 require APPPATH . '/libraries/BaseController.php';
 
-class User extends BaseController
-{
+class User extends BaseController {
     /**
      * This is default constructor of the class
      */
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->load->model('user_model');
         $this->isLoggedIn();   
@@ -17,48 +15,38 @@ class User extends BaseController
     /**
      * This function used to load the first screen of the user
      */
-    public function index()
-    {
+    public function index() {
         $this->global['pageTitle'] = 'Fake Taxi';
-        
-        //$this->load->model('dashboard_model');
-        //$this->global['count'] = $this->dashboard_model->getManagerCounts();
-
         $this->loadViews("dashboard", $this->global, NULL , NULL);//
     }
-
-    // public function getManagerCounts() {
-    //     $this->load->model('user_model');
-    //     $data['count'] = $this->user_model->getManagerCounts();
-        
-    //     $this->loadViews('users', $data);
-    // }
     
     /**
      * This function is used to load the user list
      */
-    function userListing()
-    {
-        if($this->isAdmin() == TRUE)
-        {
+    function userListing() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
             $this->loadThis();
-        }
-        else
-        {
+        } else {
             $this->load->model('user_model');
-        
+            $userId = $this->global['userId'];
+
             $searchText = $this->input->post('searchText');
             $data['searchText'] = $searchText;
             
             $this->load->library('pagination');
+            if($this->isAdmin() == TRUE) {
+                $count = $this->user_model->userListingCount($searchText, $userId);
+			    $returns = $this->paginationCompress ( "userListing/", $count, 5 );
+                $data['userRecords'] = $this->user_model->userListing($searchText, $returns["page"], $returns["segment"], $userId);
+            } else {
+                //if admin logged
+                $count = $this->user_model->userListingCountAdmin($searchText);
+                $returns = $this->paginationCompress ( "userListing/", $count, 5 );
+                $data['userRecords'] = $this->user_model->userListingAdmin($searchText, $returns["page"], $returns["segment"]);
+            }
             
-            $count = $this->user_model->userListingCount($searchText);
-
-			$returns = $this->paginationCompress ( "userListing/", $count, 5 );
-            $data['userRecords'] = $this->user_model->userListing($searchText, $returns["page"], $returns["segment"]);
             
-            $this->global['pageTitle'] = 'CodeInsect : User Listing';
-            
+            $this->global['pageTitle'] = 'FakeTaxi : User Listing';
             $this->loadViews("users", $this->global, $data, NULL);
         }
     }
@@ -66,14 +54,10 @@ class User extends BaseController
     /**
      * This function is used to load the add new form
      */
-    function addNew()
-    {
-        if($this->isAdmin() == TRUE)
-        {
+    function addNew() {
+        if($this->isAdmin() == TRUE) {
             $this->loadThis();
-        }
-        else
-        {
+        } else {
             $this->load->model('user_model');
             $data['roles'] = $this->user_model->getUserRoles();
             
@@ -321,10 +305,8 @@ class User extends BaseController
         }
     }
 
-    function pageNotFound()
-    {
+    function pageNotFound() {
         $this->global['pageTitle'] = 'CodeInsect : 404 - Page Not Found';
-        
         $this->loadViews("404", $this->global, NULL, NULL);
     }
 }
