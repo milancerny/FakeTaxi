@@ -17,15 +17,23 @@ class Dashboard extends BaseController {
     public function index() {
         $this->global['pageTitle'] = 'Fake Taxi';
         $userId = $this->global['userId'];
-
+        $roleId = $this->global['role'];
+        //print_r($this);
 
         $data['managerCount'] = $this->dashboard_model->getManagerCounts();
-        $data['employeeCount'] = $this->dashboard_model->getEmployeeCounts($userId); //podriadeni zamestnanci
+        
 
         $data['myActiveTasks'] = $this->tasks_model->getActiveTaskCount($userId);
-        $data['completedTasks'] = $this->tasks_model->getCompletedTasksCount($userId);
-        $data['allTasks'] = $this->tasks_model->getAllTasksCount($userId);
-        
+
+        if($userId == ROLE_ADMIN) { // if admin see all tasks statistics
+            $data['employeeCount'] = $this->dashboard_model->getEmployeeCountsAdmin(); //podriadeni zamestnanci
+            $data['completedTasks'] = $this->tasks_model->getCompletedTasksCountAdmin();
+            $data['allTasks'] = $this->tasks_model->getAllTasksCountAdmin();
+        } else {
+            $data['employeeCount'] = $this->dashboard_model->getEmployeeCounts($userId); //podriadeni zamestnanci
+            $data['completedTasks'] = $this->tasks_model->getCompletedTasksCount($userId);
+            $data['allTasks'] = $this->tasks_model->getAllTasksCount($userId);
+        }
 
         $this->loadViews('dashboard', $this->global, $data , NULL);
     }

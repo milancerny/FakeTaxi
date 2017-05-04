@@ -81,6 +81,25 @@ class Tasks_model extends CI_Model {
         return count($query->result());
     }
 
+    function getCompletedTasksCountAdmin() {
+        $this->db->select('t.taskId, t.isDeleted, t.isCompleted');
+        $this->db->from('tbl_task t');
+        $this->db->where('t.isDeleted !=', 1);
+        $this->db->where('t.isCompleted', 1);
+        $query = $this->db->get();
+
+        return count($query->result());
+    }
+
+    function getAllTasksCountAdmin() {
+        $this->db->select('t.taskId');
+        $this->db->from('tbl_task t');
+        $this->db->where('t.isDeleted !=', 1);
+        $query = $this->db->get();
+
+        return count($query->result());
+    }
+
     function getAllTasks($page, $segment, $userId) {
         $this->db->select('t.taskId, u.name AS name, t.subject, t.description, t.dueDate, t.isCompleted, t.isDeleted, u.superior');
         $this->db->from('tbl_task t');

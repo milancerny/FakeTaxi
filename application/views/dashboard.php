@@ -62,7 +62,11 @@
               <div class="small-box bg-green">
                 <div class="inner">
                   <h3><?php echo $completedTasks ?>/<?php echo $allTasks ?></h3>
-                  <p>Copleted Tasks of my group</p>
+                  <?php if($role == ROLE_ADMIN) { ?>
+                    <p>All Copleted Tasks</p>
+                  <?php } else { ?>
+                    <p>Copleted Tasks of my group</p>
+                  <?php } ?>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
