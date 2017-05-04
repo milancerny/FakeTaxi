@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: May 04, 2017 at 07:22 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Host: localhost
+-- Generation Time: May 04, 2017 at 04:45 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -161,7 +161,7 @@ INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdB
 (7, '<b>test Xss</b>', 'testujeme <b>XSS</b>', '2017-05-01', 1, 1, '2017-04-26 11:09:00', '2017-04-26 00:00:00', 0, 0, 2),
 (8, '<b>xss</b>', 'dadasas', '2017-04-27', 1, 1, '2017-04-26 11:27:29', '2017-04-26 00:00:00', 0, 1, 4),
 (9, '<b>xss</b>', 'XSS LOOOOL', '2017-05-02', 1, 1, '2017-04-26 11:28:34', '2017-04-26 11:28:34', 0, 1, 4),
-(10, '<b><i>loool</i></b>', '[removed]alert&#40;\"AHOOOOJ\"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
+(10, '<b><i>loool</i></b>', '[removed]alert&#40;"AHOOOOJ"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
 (11, 'Task', 'task', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 0, 1);
 
 -- --------------------------------------------------------
@@ -194,7 +194,7 @@ INSERT INTO `tbl_users` (`userId`, `email`, `password`, `name`, `mobile`, `roleI
 (2, 'manager@codeinsect.com', '$2y$10$quODe6vkNma30rcxbAHbYuKYAZQqUaflBgc4YpV9/90ywd.5Koklm', 'Manager', '9890098900', 2, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', 1),
 (3, 'employee@codeinsect.com', '$2y$10$M3ttjnzOV2lZSigBtP0NxuCtKRte70nc8TY5vIczYAQvfG/8syRze', 'Employee', '9890098900', 3, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', 2),
 (4, 'milan@me.sk', '$2y$10$TDNDq3cvmyD3dewjpzmsjuAOrb9Yq7MmnCyWvE4vSuFFls4CI3eHm', 'Milan Cerny', '0904011975', 3, 0, 1, '2017-04-11 00:00:00', 1, '2017-04-11 00:00:00', 2),
-(5, 'TESTOVACI@xx.com', '$2y$10$1xKCQ0WZ3P0Yd86lfl.2zuJXUYa7hqZr9ojsF1uiiYkqkLc5f.AeC', 'Testovac', '0902113609', 2, 1, 1, '2017-04-26 00:00:00', 1, '2017-04-26 00:00:00', 1);
+(5, 'TESTOVACI@xx.com', '$2y$10$1xKCQ0WZ3P0Yd86lfl.2zuJXUYa7hqZr9ojsF1uiiYkqkLc5f.AeC', 'Testovac', '0902113609', 2, 0, 1, '2017-04-26 00:00:00', 1, '2017-04-26 00:00:00', 1);
 
 --
 -- Indexes for dumped tables
