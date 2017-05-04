@@ -141,20 +141,22 @@
             </li>
             <?php } ?>
             
-            <?php if($role == ROLE_ADMIN) { ?>
+            <?php if($role == ROLE_ADMIN || $role == ROLE_MANAGER) { ?>
             <li class="treeview">
               <a href="<?php echo base_url(); ?>userListing">
                 <i class="fa fa-users"></i>
                 <span>Users</span>
               </a>
             </li>
+            <?php } ?>
+            <?php if($role == ROLE_ADMIN) { ?>
             <li class="treeview">
               <a href="#" >
                 <i class="fa fa-files-o"></i>
                 <span>Reports</span>
               </a>
             </li>
-
+            
             <li class="header" style="position: fixed; bottom: 0; width: 230px;">
               <h1 class="inspire">Pornhub</h1>
             </li>
