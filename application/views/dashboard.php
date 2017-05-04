@@ -15,6 +15,8 @@
               echo $name."<br>".$role."<br>".$role_text."<br>".$email."<br>".$userId;
             ?>
             <br><br><br>
+
+            <?php if($role == ROLE_ADMIN || $role == ROLE_MANAGER) { ?>
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-yellow">
@@ -42,7 +44,7 @@
                 <a href="<?php echo base_url(); ?>userListing" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div><!-- ./col -->
-
+            <?php } ?>
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-red">
@@ -57,6 +59,7 @@
               </div>
             </div><!-- ./col -->
 
+            <?php if($role == ROLE_ADMIN || $role == ROLE_MANAGER) { ?>
             <div class="col-lg-3 col-xs-6">
              <!-- small box -->
               <div class="small-box bg-green">
@@ -75,7 +78,7 @@
               </div>
             </div>
             <!-- ./col -->
-
+            <?php } ?>
             <div class="col-lg-3 col-xs-6">
               <!-- small box -->
               <div class="small-box bg-aqua">
@@ -228,6 +231,38 @@
                             hoverBackgroundColor: [
                                 "#a94442",
                                 "#f39c12"
+                            ]
+                        }]
+                  };
+
+                  var myPieChart = new Chart(ctx,{
+                      type: 'pie',
+                      data: data
+                      //options: options
+                  });
+                  </script>
+              </div>
+
+              <div class="col-md-2">
+                <h3>All tasks vs complete</h3>
+                <canvas id="pie2"></canvas>
+
+                <script>
+                  var ctx = $("#pie2");
+                  var data = {
+                    labels: [
+                        "Complete",
+                        "In progress"
+                    ],
+                    datasets: [{ 
+                            data: [<?php echo $completedTasks ?>, <?php echo $allTasks ?>],
+                            backgroundColor: [
+                                "#00a65a",
+                                "rgba(54, 162, 235, 0.2)"
+                            ],
+                            hoverBackgroundColor: [
+                                "#00a65a",
+                                "rgba(54, 162, 235, 0.2)"
                             ]
                         }]
                   };
