@@ -54,6 +54,12 @@
                                             ?>
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="supervisor">Supervisor</label>
+                                        <select class="form-control required" id="supervisor" name="supervisor">
+                                            <option value="0">Select Solver</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
