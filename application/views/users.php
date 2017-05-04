@@ -8,7 +8,7 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-xs-12 text-right">
+            <div class="col-xs-12 pull-left">
                 <div class="form-group">
                     <a class="btn btn-primary" href="<?php echo base_url(); ?>addNew"><i class="fa fa-plus"></i> Add New</a>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="box-body table-responsive no-padding">
                   <table class="table table-hover">
                     <tr>
-                      <th>Id</th>
+                      <th>#</th>
                       <th>Name</th>
                       <th>Email</th>
                       <th>Mobile</th>
@@ -56,7 +56,9 @@
                       <td><?php echo $record->role ?></td>
                       <td class="text-center">
                           <a class="btn btn-sm btn-info" href="<?php echo base_url().'editOld/'.$record->userId; ?>"><i class="fa fa-pencil"></i></a>
+                          <?php if($record->userId !== $userId) { ?> <!-- do not remove yourself -->
                           <a class="btn btn-sm btn-danger deleteUser" href="#" data-userid="<?php echo $record->userId; ?>"><i class="fa fa-trash"></i></a>
+                          <?php } ?>
                       </td>
                     </tr>
                     <?php
