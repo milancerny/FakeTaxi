@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 04, 2017 at 04:45 PM
+-- Generation Time: May 05, 2017 at 02:51 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -162,7 +162,9 @@ INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdB
 (8, '<b>xss</b>', 'dadasas', '2017-04-27', 1, 1, '2017-04-26 11:27:29', '2017-04-26 00:00:00', 0, 1, 4),
 (9, '<b>xss</b>', 'XSS LOOOOL', '2017-05-02', 1, 1, '2017-04-26 11:28:34', '2017-04-26 11:28:34', 0, 1, 4),
 (10, '<b><i>loool</i></b>', '[removed]alert&#40;"AHOOOOJ"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
-(11, 'Task', 'task', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 0, 1);
+(11, 'Task', 'task', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 0, 1),
+(12, 'Test Redirect 2', 'testujeme hide title panu', '2017-05-31', 1, 1, '2017-05-05 13:18:22', '2017-05-05 13:18:22', 0, 0, 7),
+(13, 'Test Delay', 'test delay na title pane', '2017-05-31', 2, 2, '2017-05-05 13:22:05', '2017-05-05 13:22:05', 0, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -191,10 +193,13 @@ CREATE TABLE `tbl_users` (
 
 INSERT INTO `tbl_users` (`userId`, `email`, `password`, `name`, `mobile`, `roleId`, `isDeleted`, `createdBy`, `createdDtm`, `updatedBy`, `updatedDtm`, `superior`) VALUES
 (1, 'admin@codeinsect.com', '$2y$10$WQQRBQDkxV/98bqK.24Dp.uMVS6KcztVqdwwTrOBLIWLSeSqE2gii', 'Milanko Cerny', '9890098900', 1, 0, 0, '2015-07-01 00:00:00', 1, '2017-03-03 00:00:00', NULL),
-(2, 'manager@codeinsect.com', '$2y$10$quODe6vkNma30rcxbAHbYuKYAZQqUaflBgc4YpV9/90ywd.5Koklm', 'Manager', '9890098900', 2, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', 1),
-(3, 'employee@codeinsect.com', '$2y$10$M3ttjnzOV2lZSigBtP0NxuCtKRte70nc8TY5vIczYAQvfG/8syRze', 'Employee', '9890098900', 3, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', 2),
-(4, 'milan@me.sk', '$2y$10$TDNDq3cvmyD3dewjpzmsjuAOrb9Yq7MmnCyWvE4vSuFFls4CI3eHm', 'Milan Cerny', '0904011975', 3, 0, 1, '2017-04-11 00:00:00', 1, '2017-04-11 00:00:00', 2),
-(5, 'TESTOVACI@xx.com', '$2y$10$1xKCQ0WZ3P0Yd86lfl.2zuJXUYa7hqZr9ojsF1uiiYkqkLc5f.AeC', 'Testovac', '0902113609', 2, 0, 1, '2017-04-26 00:00:00', 1, '2017-04-26 00:00:00', 1);
+(2, 'manager@codeinsect.com', '$2y$10$quODe6vkNma30rcxbAHbYuKYAZQqUaflBgc4YpV9/90ywd.5Koklm', 'Ali ', '9890098900', 2, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', 1),
+(3, 'employee@codeinsect.com', '$2y$10$M3ttjnzOV2lZSigBtP0NxuCtKRte70nc8TY5vIczYAQvfG/8syRze', 'Janko Zamestnanec', '9890098900', 3, 0, 1, '2016-12-09 00:00:00', 1, '2017-04-11 00:00:00', 2),
+(4, 'ferko@me.sk', '$2y$10$TDNDq3cvmyD3dewjpzmsjuAOrb9Yq7MmnCyWvE4vSuFFls4CI3eHm', 'Ferko Zamestnanec', '0904011975', 3, 0, 1, '2017-04-11 00:00:00', 1, '2017-04-11 00:00:00', 2),
+(7, 'janpaz@me.sk', '$2y$10$SNMvvtRCs.2blVXioX2MAegMRxr7MBn.mhxJ98Dq6LnZAEN0V4Qla', 'Jan Pazitny', '0902113656', 2, 0, 1, '2017-05-05 00:00:00', NULL, NULL, 1),
+(6, 'iky@me.sk', '$2y$10$Sh0MY.sC2bxpWsJrvKmA7OcaRbrjC2B/0/I5wYgRqzM/bJi/TfgdK', 'Iky Ujlaky', '0902113609', 2, 0, 1, '2017-05-05 07:37:22', NULL, NULL, 1),
+(9, 'mladucky@me.sk', '$2y$10$TeC/LVYT2mM54BlmyP0UTeni7.6giLd4QzKyPmyEWNAL2ED2UVo/e', 'Jan Mladucky', '0902113699', 3, 0, 1, '2017-05-05 00:00:00', NULL, NULL, 7),
+(10, 'mirka@me.sk', '$2y$10$p.6/bMa8/DpI/D5bukdO7uXI57bw94rwrqyRvcOV5pPO4h9NBfjdW', 'Mirka Cerna', '0902113677', 2, 0, 1, '2017-05-05 00:00:00', NULL, NULL, 1);
 
 --
 -- Indexes for dumped tables
@@ -287,12 +292,12 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT for table `tbl_task`
 --
 ALTER TABLE `tbl_task`
-  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
