@@ -2,8 +2,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <i class="fa fa-users"></i> User Management
-        <small>Add / Edit User</small>
+        <i class="fa fa-users"></i> Add new user
+        <small>Detail User</small>
       </h1>
     </section>
     
@@ -80,6 +80,30 @@
                                     </div>
                                 </div>    
                             </div>
+                            <?php if($role == ROLE_ADMIN) { ?>
+                            <div class="row">
+                                <div class="col-md-6">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="manager">Manager</label>
+                                        <br><small>Set if only role = Employee</small>
+                                        <select class="form-control" id="manager" name="manager">
+                                            <option value="0">Select Manager</option>
+                                            <?php
+                                            if(!empty($managers)) {
+                                                foreach ($managers as $manager) {
+                                                    ?>
+                                            <option value="<?php echo $manager->userId ?>"><?php echo $manager->name ?></option>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
                         </div><!-- /.box-body -->
     
                         <div class="box-footer">

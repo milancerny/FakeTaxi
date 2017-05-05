@@ -32,6 +32,7 @@ class User_model extends CI_Model {
                 'BaseTbl.isDeleted' => 0,
                 'BaseTbl.roleId !=' => 1));
         }
+        $this->db->order_by("BaseTbl.userId", "asc");
         $query = $this->db->get();
         
         return count($query->result());
@@ -70,6 +71,7 @@ class User_model extends CI_Model {
                     'BaseTbl.roleId !=' => 1));
             }
             $this->db->limit($page, $segment);
+            $this->db->order_by("BaseTbl.userId", "asc");
             $query = $this->db->get();
             
             $result = $query->result();        
@@ -136,6 +138,7 @@ class User_model extends CI_Model {
                     'BaseTbl.roleId !=' => 1,
                     'BaseTbl.superior' => $userId));
         }
+        $this->db->order_by("BaseTbl.userId", "asc");
         $query = $this->db->get();
         
         return count($query->result());
@@ -205,6 +208,7 @@ class User_model extends CI_Model {
                     'BaseTbl.superior' => $userId));
             }
             $this->db->limit($page, $segment);
+            $this->db->order_by("BaseTbl.userId", "asc");
             $query = $this->db->get();
             
             $result = $query->result();        
@@ -233,8 +237,21 @@ class User_model extends CI_Model {
     function getUserRoles() {
         $this->db->select('roleId, role');
         $this->db->from('tbl_roles');
-        $this->db->where('roleId !=', 1);
-        $this->db->where('roleId !=', 2);
+        $this->db->where('roleId', 3);
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+
+    /**
+     * This function is used to get the manager name
+     * When admin adding some employee, he must defined his superior manager
+     * @return array $result : This is result of the query
+     */
+    function getManagers() {
+        $this->db->select('userId, roleId, name');
+        $this->db->from('tbl_users');
+        $this->db->where('roleId', 2);
         $query = $this->db->get();
         
         return $query->result();
@@ -246,8 +263,7 @@ class User_model extends CI_Model {
      * @param {number} $userId : This is user id
      * @return {mixed} $result : This is searched result
      */
-    function checkEmailExists($email, $userId = 0)
-    {
+    function checkEmailExists($email, $userId = 0) {
         $this->db->select("email");
         $this->db->from("tbl_users");
         $this->db->where("email", $email);   

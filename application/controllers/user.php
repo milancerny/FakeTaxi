@@ -64,10 +64,10 @@ class User extends BaseController {
                 $data['roles'] = $this->user_model->getUserRoles();
             } else {
                 $data['roles'] = $this->user_model->getUserRolesAdmin();
+                $data['managers'] = $this->user_model->getManagers();
             }
             
             $this->global['pageTitle'] = 'FakeTaxi : Add New User';
-
             $this->loadViews("addNew", $this->global, $data, NULL);
         }
     }
@@ -92,14 +92,10 @@ class User extends BaseController {
     /**
      * This function is used to add new user to the system
      */
-    function addNewUser()
-    {
-        if($this->isAdmin() == TRUE)
-        {
+    function addNewUser() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
             $this->loadThis();
-        }
-        else
-        {
+        } else {
             $this->load->library('form_validation');
             
             $this->form_validation->set_rules('fname','Full Name','trim|required|max_length[128]|xss_clean');
@@ -109,30 +105,31 @@ class User extends BaseController {
             $this->form_validation->set_rules('role','Role','trim|required|numeric');
             $this->form_validation->set_rules('mobile','Mobile Number','required|min_length[10]|xss_clean');
             
-            if($this->form_validation->run() == FALSE)
-            {
+            if($this->form_validation->run() == FALSE) {
                 $this->addNew();
-            }
-            else
-            {
+            } else {
                 $name = ucwords(strtolower($this->input->post('fname')));
                 $email = $this->input->post('email');
                 $password = $this->input->post('password');
                 $roleId = $this->input->post('role');
                 $mobile = $this->input->post('mobile');
                 
-                $userInfo = array('email'=>$email, 'password'=>getHashedPassword($password), 'roleId'=>$roleId, 'name'=> $name,
-                                    'mobile'=>$mobile, 'createdBy'=>$this->vendorId, 'createdDtm'=>date('Y-m-d H:i:sa'));
+                if($roleId == 2) { //create new Manager acc, his superior is admin
+                    $userInfo = array('email'=>$email, 'password'=>getHashedPassword($password), 'roleId'=>$roleId, 'name'=> $name,
+                        'mobile'=>$mobile, 'createdBy'=>$this->vendorId, 'createdDtm'=>date('Y-m-d'), 'superior'=>1);
+                } else {
+                    $managerId = $this->input->post('manager');
+
+                    $userInfo = array('email'=>$email, 'password'=>getHashedPassword($password), 'roleId'=>$roleId, 'name'=> $name,
+                        'mobile'=>$mobile, 'createdBy'=>$this->vendorId, 'createdDtm'=>date('Y-m-d'), 'superior'=>$managerId);
+                }
                 
                 $this->load->model('user_model');
                 $result = $this->user_model->addNewUser($userInfo);
                 
-                if($result > 0)
-                {
+                if($result > 0) {
                     $this->session->set_flashdata('success', 'New User created successfully');
-                }
-                else
-                {
+                } else {
                     $this->session->set_flashdata('error', 'User creation failed');
                 }
                 
