@@ -75,8 +75,7 @@
                 <?php
                     $this->load->helper('form');
                     $error = $this->session->flashdata('error');
-                    if($error)
-                    {
+                    if($error) {
                 ?>
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -85,8 +84,7 @@
                 <?php } ?>
                 <?php  
                     $success = $this->session->flashdata('success');
-                    if($success)
-                    {
+                    if($success) {
                 ?>
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -108,13 +106,18 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#fsubject").focus();
         $(function() {
             $('#datetimepicker4').datetimepicker({
                 pickTime: false
-                });
-            }).on('changeDate', function (e) {
-                // self.xtag.validation && self.validate();
-                $('#datetimepicker4').datetimepicker('hide');
             });
+        }).on('changeDate', function (e) {
+            // self.xtag.validation && self.validate();
+            $('#datetimepicker4').datetimepicker('hide');
+        });
+
+        if($('.alert').is(":visible")) {
+            $('.alert').delay(5000).fadeOut(300); 
+        }
     });
 </script>

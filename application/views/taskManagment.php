@@ -67,7 +67,7 @@
                   <table class="table table-hover">
                     <tr>
                       <th class="text-center" style="width: 6%;">Completed</th>
-                      <th style="width: 3%;">Id</th>
+                      <th style="width: 3%;">#</th>
                       <th style="width: 9%;">Solver</th>
                       <th style="width: 13%;">Subject</th>
                       <th style="width: 54%;">Description</th>
