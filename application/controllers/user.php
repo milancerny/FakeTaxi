@@ -55,13 +55,18 @@ class User extends BaseController {
      * This function is used to load the add new form
      */
     function addNew() {
-        if($this->isAdmin() == TRUE) {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
             $this->loadThis();
         } else {
             $this->load->model('user_model');
-            $data['roles'] = $this->user_model->getUserRoles();
+
+            if($this->isAdmin() == TRUE) {
+                $data['roles'] = $this->user_model->getUserRoles();
+            } else {
+                $data['roles'] = $this->user_model->getUserRolesAdmin();
+            }
             
-            $this->global['pageTitle'] = 'CodeInsect : Add New User';
+            $this->global['pageTitle'] = 'FakeTaxi : Add New User';
 
             $this->loadViews("addNew", $this->global, $data, NULL);
         }
@@ -70,8 +75,7 @@ class User extends BaseController {
     /**
      * This function is used to check whether email already exist or not
      */
-    function checkEmailExists()
-    {
+    function checkEmailExists() {
         $userId = $this->input->post("userId");
         $email = $this->input->post("email");
 

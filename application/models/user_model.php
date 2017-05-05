@@ -212,14 +212,29 @@ class User_model extends CI_Model {
     }
     
     /**
-     * This function is used to get the user roles information
+     * This function is used to get the user roles information for admin 
+     * Admin can add anything
      * @return array $result : This is result of the query
      */
-    function getUserRoles()
-    {
+    function getUserRolesAdmin() {
         $this->db->select('roleId, role');
         $this->db->from('tbl_roles');
         $this->db->where('roleId !=', 1);
+        $query = $this->db->get();
+        
+        return $query->result();
+    }
+
+    /**
+     * This function is used to get the user roles information for manager
+     * Manager can add only your submission employee
+     * @return array $result : This is result of the query
+     */
+    function getUserRoles() {
+        $this->db->select('roleId, role');
+        $this->db->from('tbl_roles');
+        $this->db->where('roleId !=', 1);
+        $this->db->where('roleId !=', 2);
         $query = $this->db->get();
         
         return $query->result();
