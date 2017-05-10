@@ -136,13 +136,15 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+        $("#fsubject").focus();
+
         $(function() {
             $('#datetimepicker4').datetimepicker({
                 pickTime: false
-                });
-            }).on('changeDate', function (e) {
-                // self.xtag.validation && self.validate();
-                $('#datetimepicker4').datetimepicker('hide');
             });
+        }).on('changeDate', function (e) {
+            // self.xtag.validation && self.validate();
+            $('#datetimepicker4').datetimepicker('hide');
+        });
     });
 </script>

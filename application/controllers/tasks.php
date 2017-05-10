@@ -149,7 +149,8 @@ class Tasks extends BaseController {
             if($taskId == null) {
                 redirect('taskManagment');
             }
-            $data["solvers"] = $this->tasks_model->getSolvers();
+            $userId = $this->global["userId"];
+            $data["solvers"] = $this->tasks_model->getSolvers($userId);
             $data['taskInfo'] = $this->tasks_model->getTaskInfo($taskId);
 
             foreach($data['taskInfo'] as $record) {

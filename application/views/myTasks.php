@@ -13,8 +13,7 @@
                 <?php
                     $this->load->helper('form');
                     $error = $this->session->flashdata('error');
-                    if($error)
-                    {
+                    if($error) {
                 ?>
                 <div class="alert alert-danger alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -23,8 +22,7 @@
                 <?php } ?>
                 <?php  
                     $success = $this->session->flashdata('success');
-                    if($success)
-                    {
+                    if($success) {
                 ?>
                 <div class="alert alert-success alert-dismissable">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -52,11 +50,13 @@
                     </button>
                     <br>
                     
-                    <div style="width: 64%">
+                    <div>
                         <h3 class="inline"><i class="fa fa-paperclip" aria-hidden="true"></i> <?php echo htmlspecialchars($record->subject, ENT_QUOTES, 'UTF-8'); ?></h3>
+                    
+                    <p class="inline pull-right" style="color: #6b6b6b">Due date: <small><?php echo $record->dueDate; ?></small></p>
                     </div>
-                    <p class="inline pull-right">Due date: <small><?php echo $record->dueDate; ?></small></p>
                     <hr class="task">
+                    <br>
                     <p>
                         <?php echo htmlspecialchars($record->description, ENT_QUOTES, 'UTF-8'); ?>
                     </p>
@@ -65,7 +65,7 @@
                     <div class="input-group">
                         <input type="hidden" value="<?php echo $record->taskId; ?>" id="taskId" name="taskId" />
                     </div>
-                    <input type="submit" class="btn btn-success btn-lg" value="Success" />
+                    <input type="submit" class="btn btn-success btn-sm" value="Success Task" />
                 </div>
             </form>
             <?php }} else { ?>
@@ -78,3 +78,10 @@
         </div>
     </section>
 </div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        if($('.alert').is(":visible")) {
+            $('.alert').delay(5000).fadeOut(300); 
+        }
+    });
+</script>
