@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 05, 2017 at 02:51 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.20
+-- Host: 127.0.0.1
+-- Generation Time: May 10, 2017 at 07:29 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -152,19 +152,20 @@ CREATE TABLE `tbl_task` (
 --
 
 INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdBy`, `updatedBy`, `createdDate`, `updatedDate`, `isDeleted`, `isCompleted`, `userId`) VALUES
-(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\r\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\r\n', '2017-04-30', 1, 1, '2017-04-21 15:29:21', '2017-04-27 00:00:00', 0, 1, 1),
+(1, 'Testovaci task pre id 4', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak\n', '2017-04-30', 1, 1, '2017-04-21 15:29:21', '2017-04-27 00:00:00', 0, 1, 1),
 (2, 'Testik Pre Dva 222', 'TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK TESTIK', '2017-04-26', 1, 1, '2017-04-21 22:21:52', '2017-04-27 00:00:00', 0, 1, 1),
 (3, 'Test Create', 'testujem vytvorenie po prve', '2017-04-30', 1, 1, '2017-04-26 00:37:55', '2017-04-27 00:00:00', 0, 0, 4),
-(4, 'Test Redirect 21', 'TEST REDIRECT', '2017-05-12', 1, 1, '2017-04-26 00:44:20', '2017-04-26 00:00:00', 0, 0, 2),
+(4, 'Test Redirect 21', 'TEST REDIRECT', '2017-05-12', 1, 1, '2017-04-26 00:44:20', '2017-04-26 00:00:00', 0, 1, 2),
 (5, 'Tasky Na Zajtra', '- pri create task due date calendar\r\n- vylistovanie vsetkych taskov nahradit ciselnu hodnotu ikonou\r\n- premyslet ci chcem pri tasku obrazok\r\n- dokoncit update / delete tasku', '2017-04-26', 2, 1, '2017-04-26 00:59:04', '2017-04-26 00:00:00', 0, 0, 4),
 (6, 'Testovanie S Datepickerom', 'testujem veselo o sto sest', '2017-04-30', 1, 1, '2017-04-26 10:32:31', '2017-04-26 10:32:31', 0, 0, 2),
 (7, '<b>test Xss</b>', 'testujeme <b>XSS</b>', '2017-05-01', 1, 1, '2017-04-26 11:09:00', '2017-04-26 00:00:00', 0, 0, 2),
 (8, '<b>xss</b>', 'dadasas', '2017-04-27', 1, 1, '2017-04-26 11:27:29', '2017-04-26 00:00:00', 0, 1, 4),
 (9, '<b>xss</b>', 'XSS LOOOOL', '2017-05-02', 1, 1, '2017-04-26 11:28:34', '2017-04-26 11:28:34', 0, 1, 4),
-(10, '<b><i>loool</i></b>', '[removed]alert&#40;"AHOOOOJ"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
-(11, 'Task', 'task', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 0, 1),
+(10, '<b><i>loool</i></b>', '[removed]alert&#40;\"AHOOOOJ\"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
+(11, 'Task', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 1, 1),
 (12, 'Test Redirect 2', 'testujeme hide title panu', '2017-05-31', 1, 1, '2017-05-05 13:18:22', '2017-05-05 13:18:22', 0, 0, 7),
-(13, 'Test Delay', 'test delay na title pane', '2017-05-31', 2, 2, '2017-05-05 13:22:05', '2017-05-05 13:22:05', 0, 0, 3);
+(13, 'Test Delay', 'test delay na title pane', '2017-05-31', 2, 2, '2017-05-05 13:22:05', '2017-05-05 13:22:05', 0, 0, 3),
+(14, 'Subject', 'ssss', '2017-05-31', 2, 2, '2017-05-06 08:36:57', '2017-05-06 08:36:57', 0, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -292,7 +293,7 @@ ALTER TABLE `tbl_roles`
 -- AUTO_INCREMENT for table `tbl_task`
 --
 ALTER TABLE `tbl_task`
-  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `taskId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `tbl_users`
 --
