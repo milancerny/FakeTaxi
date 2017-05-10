@@ -1,8 +1,6 @@
 # Admin Panel - User Management using CodeIgniter
 #####Admin Panel - User Management Demo using CodeIgniter + AdminLTE Bootstrap Theme
 
-The code is uploaded to demonstrate the simple role based Admin Panel application using CodeIgniter(MVC Framework)
-
 ## Installation
 
 Download the code from repository.
@@ -28,6 +26,8 @@ The login screen will appear.
 
 To login, I am going to provide the user-email ids and password below.
 
+## Access
+
 **System Administrator Account :**
 
 email : admin@codeinsect.com
@@ -45,11 +45,3 @@ password : codeinsect
 email : employee@codeinsect.com
 
 password : codeinsect
-
-Once you logged in with System Administrator account, you can create user or edit previous user if you want.
-
-**Youtube Links :**
-
-[CodeIgniter Admin Panel Demo](https://youtu.be/RFRXUd8LHUM) : This video contain the demo of CodeIgniter Admin Panel.
-
-[How to setup CodeIgniter Admin Panel](https://youtu.be/tU1PbcRj7ww) : This video contain the procedure of setting up CodeIgniter Admin Panel.
