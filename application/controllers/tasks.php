@@ -225,7 +225,7 @@ class Tasks extends BaseController {
     }
 
     function pageNotFound() {
-        $this->global['pageTitle'] = 'CodeInsect : 404 - Page Not Found';
+        $this->global['pageTitle'] = 'FakeTaxi : 404 - Page Not Found';
         
         $this->loadViews("404", $this->global, NULL, NULL);
     }
