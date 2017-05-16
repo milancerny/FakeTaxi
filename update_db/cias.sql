@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: May 10, 2017 at 07:29 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Host: localhost
+-- Generation Time: May 16, 2017 at 03:58 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -69,6 +69,16 @@ CREATE TABLE `tbl_car_sub_type` (
   `carTypeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
+--
+-- Dumping data for table `tbl_car_sub_type`
+--
+
+INSERT INTO `tbl_car_sub_type` (`id`, `subType`, `carTypeId`) VALUES
+(1, 'Octavia', 3),
+(2, 'Fábia', 3),
+(3, 'Astra', 4),
+(4, 'A4', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -79,6 +89,16 @@ CREATE TABLE `tbl_car_type` (
   `id` int(11) NOT NULL,
   `type` varchar(255) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+--
+-- Dumping data for table `tbl_car_type`
+--
+
+INSERT INTO `tbl_car_type` (`id`, `type`) VALUES
+(1, 'BMW'),
+(2, 'Audi'),
+(3, 'Škoda'),
+(4, 'Opel');
 
 -- --------------------------------------------------------
 
@@ -161,7 +181,7 @@ INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdB
 (7, '<b>test Xss</b>', 'testujeme <b>XSS</b>', '2017-05-01', 1, 1, '2017-04-26 11:09:00', '2017-04-26 00:00:00', 0, 0, 2),
 (8, '<b>xss</b>', 'dadasas', '2017-04-27', 1, 1, '2017-04-26 11:27:29', '2017-04-26 00:00:00', 0, 1, 4),
 (9, '<b>xss</b>', 'XSS LOOOOL', '2017-05-02', 1, 1, '2017-04-26 11:28:34', '2017-04-26 11:28:34', 0, 1, 4),
-(10, '<b><i>loool</i></b>', '[removed]alert&#40;\"AHOOOOJ\"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
+(10, '<b><i>loool</i></b>', '[removed]alert&#40;"AHOOOOJ"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
 (11, 'Task', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 1, 1),
 (12, 'Test Redirect 2', 'testujeme hide title panu', '2017-05-31', 1, 1, '2017-05-05 13:18:22', '2017-05-05 13:18:22', 0, 0, 7),
 (13, 'Test Delay', 'test delay na title pane', '2017-05-31', 2, 2, '2017-05-05 13:22:05', '2017-05-05 13:22:05', 0, 0, 3),
@@ -273,12 +293,12 @@ ALTER TABLE `tbl_car_repair`
 -- AUTO_INCREMENT for table `tbl_car_sub_type`
 --
 ALTER TABLE `tbl_car_sub_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_car_type`
 --
 ALTER TABLE `tbl_car_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_reset_password`
 --
