@@ -113,7 +113,7 @@
               </a>
             </li>
             <li class="treeview">
-              <a href="<?php echo base_url(); ?>" >
+              <a href="<?php echo base_url(); ?>carsManagment" >
                 <i class="fa fa-car"></i>
                 <span>Cars managment</span>
               </a>
