@@ -1,7 +1,7 @@
 <?php if(!defined('BASEPATH')) exit('No direct script access allowed');
 require APPPATH . '/libraries/BaseController.php';
  
-class Cars extends BaseController {
+class Car extends BaseController {
     /**
      * This is default constructor of the class
      */
@@ -10,7 +10,7 @@ class Cars extends BaseController {
 
         //$this->load->model('user_model');
         //$this->load->model('dashboard_model');
-        $this->load->model('tasks_model');
+        $this->load->model('car_model');
 
         $this->isLoggedIn();   
     }
@@ -21,7 +21,7 @@ class Cars extends BaseController {
         // $userId = $this->global['userId'];
         // $data['taskData'] = $this->tasks_model->getActiveTaskDetail($userId);
 
-        $this->loadViews('carsManagment', $this->global, $data , NULL);
+        $this->loadViews('carsManagment', $this->global, NULL, NULL);
     }
 
     public function carsManagment() {
@@ -34,21 +34,32 @@ class Cars extends BaseController {
             $searchText = $this->input->post('searchText');
             $data['searchText'] = $searchText;
                 
-            $this->load->library('pagination');
-                
-            $count = $this->tasks_model->getAllTasksCount($searchText);
+            $this->load->library('pagination'); 
+            //$count = $this->tasks_model->getAllTasksCount($searchText);
             
             if($this->isAdmin() != TRUE) {
-                $count = $this->tasks_model->getAllTasksCountAdmin($this->global['userId']);
-                $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
-                $data['taskData'] = $this->tasks_model->taskPreviewAdmin($returns["page"], $returns["segment"]);
+                $count = $this->car_model->carsCountAdmin();
+                $returns = $this->paginationCompress( "carsManagment/", $count, 5 );
+                $data['carsData'] = $this->car_model->carsPreviewAdmin($returns["page"], $returns["segment"]);
             } else {
-                $count = $this->tasks_model->getAllTasksCount($this->global['userId']);
-                $returns = $this->paginationCompress( "taskManagment/", $count, 5 );
-                $data['taskData'] = $this->tasks_model->tasksPreview($returns["page"], $returns["segment"], $userId);
+                $count = $this->car_model->carsCount($userId);
+                $returns = $this->paginationCompress( "carsManagment/", $count, 5 );
+                $data['carsData'] = $this->car_model->carsPreview($returns["page"], $returns["segment"], $userId);
             }   
             
             $this->loadViews('carsManagment', $this->global, $data , NULL);
+        }
+    }
+
+    public function createCar() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        } else {
+            $this->global['pageTitle'] = 'FakeTaxi: Create New Car';
+            $userId = $this->global['userId'];
+            
+            $data["types"] = $this->car_model->carTypes();
+            $this->loadViews('createCar', $this->global, $data, NULL);
         }
     }
 

@@ -83,8 +83,10 @@ $route['updateTask'] = "tasks/updateTask";
 $route['successTask'] = "tasks/successTask";
 $route['successTask/(:num)'] = "tasks/successTask/$1";
 
-$route['cars'] = "cars";
-$route['carsManagment'] = "cars/carsManagment";
+$route['car'] = "car";
+$route['carsManagment'] = "car/carsManagment";
+$route['carsManagment/(:num)'] = "car/carsManagment/$1";
+$route['createCar'] = "car/createCar";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
