@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 16, 2017 at 03:58 PM
+-- Generation Time: May 18, 2017 at 03:49 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -28,19 +28,26 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_car_detail` (
   `id` int(11) NOT NULL,
-  `createdDate` date NOT NULL,
+  `createdDate` date DEFAULT NULL,
   `createdBy` int(11) NOT NULL,
-  `updatedDate` date NOT NULL,
-  `updatedBy` int(11) NOT NULL,
-  `EVC` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `updatedDate` date DEFAULT NULL,
+  `updatedBy` int(11) DEFAULT NULL,
+  `ECV` varchar(10) CHARACTER SET utf8 NOT NULL,
   `VIN` varchar(17) CHARACTER SET utf8 NOT NULL,
   `totalCountKm` int(11) NOT NULL,
-  `driverId` int(11) NOT NULL,
+  `driverId` int(11) DEFAULT NULL,
   `createdByUserId` int(11) NOT NULL,
   `updatedByUserId` int(11) NOT NULL,
   `color` varchar(45) CHARACTER SET utf8 NOT NULL,
   `carSubTypeId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
+
+--
+-- Dumping data for table `tbl_car_detail`
+--
+
+INSERT INTO `tbl_car_detail` (`id`, `createdDate`, `createdBy`, `updatedDate`, `updatedBy`, `ECV`, `VIN`, `totalCountKm`, `driverId`, `createdByUserId`, `updatedByUserId`, `color`, `carSubTypeId`) VALUES
+(1, '2017-05-18', 1, NULL, NULL, 'HC755BZ', '2C4RC1CG6DR632915', 150000, 3, 0, 0, 'dark red', 3);
 
 -- --------------------------------------------------------
 
@@ -66,7 +73,7 @@ CREATE TABLE `tbl_car_repair` (
 CREATE TABLE `tbl_car_sub_type` (
   `id` int(11) NOT NULL,
   `subType` varchar(255) CHARACTER SET utf8 NOT NULL,
-  `carTypeId` int(11) NOT NULL
+  `carTypeId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
 --
@@ -77,7 +84,8 @@ INSERT INTO `tbl_car_sub_type` (`id`, `subType`, `carTypeId`) VALUES
 (1, 'Octavia', 3),
 (2, 'Fábia', 3),
 (3, 'Astra', 4),
-(4, 'A4', 2);
+(4, 'A4', 2),
+(5, '530i Sedan', NULL);
 
 -- --------------------------------------------------------
 
@@ -283,7 +291,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_car_detail`
 --
 ALTER TABLE `tbl_car_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `tbl_car_repair`
 --
@@ -293,7 +301,7 @@ ALTER TABLE `tbl_car_repair`
 -- AUTO_INCREMENT for table `tbl_car_sub_type`
 --
 ALTER TABLE `tbl_car_sub_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `tbl_car_type`
 --
