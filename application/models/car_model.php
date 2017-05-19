@@ -59,15 +59,36 @@ class Car_model extends CI_Model {
         return count($query->result());
     }
 
-    function carTypes() {
-        $this->db->select('t.type, sub.*');
-        $this->db->from('tbl_car_type t');
-        $this->db->join('tbl_car_sub_type sub', 'sub.carTypeId=t.id','left'); 
-        $this->db->where('sub.carTypeId is NOT NULL', NULL, FALSE);
-        $this->db->order_by("t.type", "asc");
+    function getCarTypes() {
+        $this->db->select('*');
+        $this->db->from('tbl_car_type');
+        $this->db->order_by("type", "asc");
 
         $query = $this->db->get();
         return $query->result();
+    }
+
+    function getCarSubTypes(){
+        $this->db->select('subType, carTypeId');
+        $this->db->from('tbl_car_sub_type');
+        $this->db->order_by("subType", "asc");
+
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    /**
+     * This function is used to create new car to system
+     * @return number $insert_id : This is last inserted id
+     */
+    function createNewCar($carInfo) {
+        $this->db->trans_start();
+        $this->db->insert('tbl_car_detail', $carInfo);
+        
+        $insert_id = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        return $insert_id;
     }
     
 }  

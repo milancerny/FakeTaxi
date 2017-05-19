@@ -57,9 +57,69 @@ class Car extends BaseController {
         } else {
             $this->global['pageTitle'] = 'FakeTaxi: Create New Car';
             $userId = $this->global['userId'];
-            
-            $data["types"] = $this->car_model->carTypes();
+
+            $data["carTypes"] = $this->car_model->getCarTypes();
+            $data["carSubTypes"] = $this->car_model->getCarSubTypes();
+
+            /*  REUSE FROM TASK MODEL 
+             *  TODO : MAYBE DRIVER MAX 2 cars
+             */
+            $this->load->model('tasks_model');
+            if($this->isAdmin() != TRUE) {
+                $data["drivers"] = $this->tasks_model->getSolversAdmin();
+            } else {
+                $data["drivers"] = $this->tasks_model->getSolvers($userId);
+            }
             $this->loadViews('createCar', $this->global, $data, NULL);
+        }
+    }
+
+    /**
+     * This function is used to create new task to the system
+     */
+    function createNewCar() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        }
+        else {
+            $this->load->library('form_validation');
+            
+            // $this->form_validation->set_rules('carType','Car Type *','trim|required|max_length[255]|xss_clean');
+            $this->form_validation->set_rules('carSubType','Car Sub Type *','trim|required|max_length[255]|xss_clean');
+            $this->form_validation->set_rules('ecv','EČV *','trim|required|max_length[8]|xss_clean');
+            $this->form_validation->set_rules('vin','VIN *','trim|required|max_length[17]|xss_clean');
+            $this->form_validation->set_rules('driver','Driver *','trim|required|numeric');
+            $this->form_validation->set_rules('totalKm','KM *','trim|required|numeric');
+            $this->form_validation->set_rules('color','Color *','trim|required|max_length[100]|xss_clean');
+            
+            if($this->form_validation->run() == FALSE) {
+                $this->createCar();
+            } else {
+                // $carType = $this->input->post('carType');
+                $carSubType = $this->input->post('carSubType');
+                $ecv = $this->input->post('ecv');
+                $vin = $this->input->post('vin');
+                $driver = $this->input->post('driver');
+                $totalKm = $this->input->post('totalKm');
+                $color = $this->input->post('color');
+
+                /* glogbal params */
+                $createdBy = $this->global['userId'];
+                
+                $carInfo = array('carSubTypeId'=>$carSubType, 'createdDate'=>date('Y-m-d'), 'ECV'=> $ecv, 'VIN'=> $vin, 'totalCountKm'=> $totalKm,
+                                    'driverId'=> $driver, 'createdBy'=>$createdBy, 'updatedBy'=> NULL, 'color'=>$color);
+                #'createdDate'=>date('Y-m-d'), 'updatedDate'=>date('Y-m-d'),
+                
+                $result = $this->car_model->createNewCar($carInfo);
+                
+                if($result > 0) {
+                    $this->session->set_flashdata('success', 'New car was created successfully');
+                } else {
+                    $this->session->set_flashdata('error', 'Car creation failed');
+                }
+                
+                redirect('createCar');
+            }
         }
     }
 

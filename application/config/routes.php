@@ -87,6 +87,7 @@ $route['car'] = "car";
 $route['carsManagment'] = "car/carsManagment";
 $route['carsManagment/(:num)'] = "car/carsManagment/$1";
 $route['createCar'] = "car/createCar";
+$route['createNewCar'] = "car/createNewCar";
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
