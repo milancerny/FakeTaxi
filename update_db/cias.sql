@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 18, 2017 at 03:49 PM
+-- Generation Time: May 19, 2017 at 03:55 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -47,7 +47,8 @@ CREATE TABLE `tbl_car_detail` (
 --
 
 INSERT INTO `tbl_car_detail` (`id`, `createdDate`, `createdBy`, `updatedDate`, `updatedBy`, `ECV`, `VIN`, `totalCountKm`, `driverId`, `createdByUserId`, `updatedByUserId`, `color`, `carSubTypeId`) VALUES
-(1, '2017-05-18', 1, NULL, NULL, 'HC755BZ', '2C4RC1CG6DR632915', 150000, 3, 0, 0, 'dark red', 3);
+(1, '2017-05-18', 1, NULL, NULL, 'HC-755BZ', '2C4RC1CG6DR632915', 150000, 3, 0, 0, 'dark red', 3),
+(2, '2017-05-19', 1, NULL, NULL, 'HC-555LV', 'JF2SHCBCXDH460561', 15000, 3, 0, 0, 'gold', 1);
 
 -- --------------------------------------------------------
 
@@ -85,7 +86,7 @@ INSERT INTO `tbl_car_sub_type` (`id`, `subType`, `carTypeId`) VALUES
 (2, 'Fábia', 3),
 (3, 'Astra', 4),
 (4, 'A4', 2),
-(5, '530i Sedan', NULL);
+(5, '530i Sedan', 1);
 
 -- --------------------------------------------------------
 
@@ -291,7 +292,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_car_detail`
 --
 ALTER TABLE `tbl_car_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tbl_car_repair`
 --
