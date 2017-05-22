@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 19, 2017 at 03:55 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.20
+-- Host: 127.0.0.1
+-- Generation Time: May 22, 2017 at 06:58 AM
+-- Server version: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -39,16 +39,17 @@ CREATE TABLE `tbl_car_detail` (
   `createdByUserId` int(11) NOT NULL,
   `updatedByUserId` int(11) NOT NULL,
   `color` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `carSubTypeId` int(11) NOT NULL
+  `carSubTypeId` int(11) NOT NULL,
+  `carSubId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_slovak_ci;
 
 --
 -- Dumping data for table `tbl_car_detail`
 --
 
-INSERT INTO `tbl_car_detail` (`id`, `createdDate`, `createdBy`, `updatedDate`, `updatedBy`, `ECV`, `VIN`, `totalCountKm`, `driverId`, `createdByUserId`, `updatedByUserId`, `color`, `carSubTypeId`) VALUES
-(1, '2017-05-18', 1, NULL, NULL, 'HC-755BZ', '2C4RC1CG6DR632915', 150000, 3, 0, 0, 'dark red', 3),
-(2, '2017-05-19', 1, NULL, NULL, 'HC-555LV', 'JF2SHCBCXDH460561', 15000, 3, 0, 0, 'gold', 1);
+INSERT INTO `tbl_car_detail` (`id`, `createdDate`, `createdBy`, `updatedDate`, `updatedBy`, `ECV`, `VIN`, `totalCountKm`, `driverId`, `createdByUserId`, `updatedByUserId`, `color`, `carSubTypeId`, `carSubId`) VALUES
+(1, '2017-05-18', 1, NULL, NULL, 'HC-755BZ', '2C4RC1CG6DR632915', 150000, 2, 0, 0, 'dark red', 3, 1),
+(2, '2017-05-19', 1, NULL, NULL, 'HC-555LV', 'JF2SHCBCXDH460561', 15000, 3, 0, 0, 'gold', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,9 @@ INSERT INTO `tbl_car_type` (`id`, `type`) VALUES
 (1, 'BMW'),
 (2, 'Audi'),
 (3, 'Škoda'),
-(4, 'Opel');
+(4, 'Opel'),
+(5, 'Mercedes'),
+(7, 'Suzuki');
 
 -- --------------------------------------------------------
 
@@ -190,7 +193,7 @@ INSERT INTO `tbl_task` (`taskId`, `subject`, `description`, `dueDate`, `createdB
 (7, '<b>test Xss</b>', 'testujeme <b>XSS</b>', '2017-05-01', 1, 1, '2017-04-26 11:09:00', '2017-04-26 00:00:00', 0, 0, 2),
 (8, '<b>xss</b>', 'dadasas', '2017-04-27', 1, 1, '2017-04-26 11:27:29', '2017-04-26 00:00:00', 0, 1, 4),
 (9, '<b>xss</b>', 'XSS LOOOOL', '2017-05-02', 1, 1, '2017-04-26 11:28:34', '2017-04-26 11:28:34', 0, 1, 4),
-(10, '<b><i>loool</i></b>', '[removed]alert&#40;"AHOOOOJ"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
+(10, '<b><i>loool</i></b>', '[removed]alert&#40;\"AHOOOOJ\"&#41;[removed]', '2017-04-26', 1, 1, '2017-04-26 11:30:39', '2017-04-26 11:30:39', 0, 0, 4),
 (11, 'Task', 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už\n                    od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak', '2017-04-28', 1, 1, '2017-04-26 13:57:12', '2017-04-27 00:00:00', 0, 1, 1),
 (12, 'Test Redirect 2', 'testujeme hide title panu', '2017-05-31', 1, 1, '2017-05-05 13:18:22', '2017-05-05 13:18:22', 0, 0, 7),
 (13, 'Test Delay', 'test delay na title pane', '2017-05-31', 2, 2, '2017-05-05 13:22:05', '2017-05-05 13:22:05', 0, 0, 3),
@@ -307,7 +310,7 @@ ALTER TABLE `tbl_car_sub_type`
 -- AUTO_INCREMENT for table `tbl_car_type`
 --
 ALTER TABLE `tbl_car_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tbl_reset_password`
 --
