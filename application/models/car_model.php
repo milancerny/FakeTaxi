@@ -2,13 +2,14 @@
 
 class Car_model extends CI_Model {
 
-    function carsPreviewAdmin($page, $segment) {
-        $this->db->select('d.id, d.ECV, d.VIN, d.totalCountKm, subT.subType, type.type, u.name');
+    function carsPreviewAdmin($page, $segment) { 
+        $this->db->select('d.carSubId, d.id, d.ECV, d.VIN, d.totalCountKm, subT.id, subT.subType, type.type, u.name');
         $this->db->from('tbl_car_detail d');
-        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.id','left'); 
+        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.carTypeId','left'); 
         $this->db->join('tbl_car_type type', 'subT.carTypeId=type.id','left'); 
         $this->db->join('tbl_users u', 'd.driverId=u.userId','left'); 
-        //$this->db->order_by("t.taskId", "asc");
+        $this->db->where('d.carSubId = subT.id');
+        $this->db->order_by("type.type", "asc");
         $this->db->limit($page, $segment);
         
         $query = $this->db->get();
@@ -16,30 +17,32 @@ class Car_model extends CI_Model {
     }
 
     /**
-     * This function is used to get count of all tasks e.g.(manager+employee),
-     * used in dashboard and task list as pagination
-     * @param number $userId : This is userId
+     * This function is used to get count of all cars e.g.(manager+employee)
      * @return number $result : All tasks count. I and my employee
      */
     function carsCountAdmin() {
-        $this->db->select('d.ECV, d.VIN, d.driverId, d.totalCountKm, subT.subType, type.type');
+        $this->db->select('d.carSubId, d.id, d.ECV, d.VIN, d.totalCountKm, subT.id, subT.subType, type.type, u.name');
         $this->db->from('tbl_car_detail d');
-        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.id','left'); 
+        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.carTypeId','left'); 
         $this->db->join('tbl_car_type type', 'subT.carTypeId=type.id','left'); 
-        
+        $this->db->join('tbl_users u', 'd.driverId=u.userId','left'); 
+        $this->db->where('d.carSubId = subT.id');
+
         $query = $this->db->get();
         return count($query->result());
     }
 
     function carsPreview($page, $segment, $userId) {
-        $this->db->select('d.id, d.ECV, d.VIN, d.totalCountKm, subT.subType, type.type, u.name');
+        $this->db->select('d.carSubId, d.id, d.ECV, d.VIN, d.totalCountKm, subT.id, subT.subType, type.type, u.name');
         $this->db->from('tbl_car_detail d');
-        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.id','left'); 
+        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.carTypeId','left'); 
         $this->db->join('tbl_car_type type', 'subT.carTypeId=type.id','left'); 
         $this->db->join('tbl_users u', 'd.driverId=u.userId','left'); 
-        $this->db->where('u.userId', $userId);
-        $this->db->or_where('u.superior', $userId);
-        //$this->db->order_by("t.taskId", "asc");
+        $this->db->where('d.carSubId = subT.id');
+        $this->db->or_where('u.userId', $userId);
+        $this->db->where('u.superior', $userId);
+        
+        $this->db->order_by("type.type", "asc");
         $this->db->limit($page, $segment);
         
         $query = $this->db->get();
@@ -47,13 +50,14 @@ class Car_model extends CI_Model {
     }
 
     function carsCount($userId) {
-        $this->db->select('d.ECV, d.VIN, d.driverId, d.totalCountKm, subT.subType, type.type');
+        $this->db->select('d.carSubId, d.id, d.ECV, d.VIN, d.totalCountKm, subT.id, subT.subType, type.type, u.name');
         $this->db->from('tbl_car_detail d');
-        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.id','left'); 
+        $this->db->join('tbl_car_sub_type subT', 'd.carSubTypeId=subT.carTypeId','left'); 
         $this->db->join('tbl_car_type type', 'subT.carTypeId=type.id','left'); 
         $this->db->join('tbl_users u', 'd.driverId=u.userId','left'); 
-        $this->db->where('u.userId', $userId);
-        $this->db->or_where('u.superior', $userId);
+        $this->db->where('d.carSubId = subT.id');
+        $this->db->or_where('u.userId', $userId);
+        $this->db->where('u.superior', $userId);
 
         $query = $this->db->get();
         return count($query->result());
@@ -84,6 +88,16 @@ class Car_model extends CI_Model {
     function createNewCar($carInfo) {
         $this->db->trans_start();
         $this->db->insert('tbl_car_detail', $carInfo);
+        
+        $insert_id = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        return $insert_id;
+    }
+
+    function createNewCarType($carInfo) {
+        $this->db->trans_start();
+        $this->db->insert('tbl_car_type', $carInfo);
         
         $insert_id = $this->db->insert_id();
         

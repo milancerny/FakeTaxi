@@ -75,7 +75,7 @@
                       <th style="width: 16.33%;">VIN</th>
                       <th style="width: 16.33%;">Owner</th>
                       <th style="width: 8%;">KM</th>
-                      <th class="text-center" style="width: 25%;">Action</th>
+                      <th class="text-center" style="width: 0%;">Action</th>
                     </tr>
                     <?php
                     if(!empty($carsData)) {

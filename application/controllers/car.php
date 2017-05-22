@@ -123,6 +123,50 @@ class Car extends BaseController {
         }
     }
 
+    function createNewCarType() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        }
+        else {
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('cType','Car Type *','trim|required|max_length[100]|xss_clean');
+            
+            if($this->form_validation->run() == FALSE) {
+                $this->createCar();
+            } else {
+                $carType = $this->input->post('cType');
+                $result = $this->car_model->getCarTypes();
+                
+                $phpArr = json_decode(json_encode($result), true);
+
+                $aLength = sizeof($phpArr);
+                $count=0;
+                foreach($phpArr as $item) {
+                    // TODO: check case sensitive
+                    if(!in_array($carType, $item, true)) {
+                        $count++; 
+                    }
+                }
+
+                if($aLength == $count) {
+                    $carInfo = array('type'=>$carType);
+                    $result = $this->car_model->createNewCarType($carInfo);
+                
+                    if($result > 0) {
+                        $this->session->set_flashdata('success', 'New car type was created successfully');
+                    } else {
+                        $this->session->set_flashdata('error', 'Car type creation failed');
+                    }
+                        
+                    redirect('createCar');
+                } else {
+                    $this->session->set_flashdata('error', 'Car type exist!');
+                    redirect('createCar');
+                }
+            }
+        }
+    }
+
     function pageNotFound() {
         $this->global['pageTitle'] = 'FakeTaxi : 404 - Page Not Found';
         $this->loadViews("404", $this->global, NULL, NULL);
