@@ -84,18 +84,18 @@ class Car extends BaseController {
         else {
             $this->load->library('form_validation');
             
-            // $this->form_validation->set_rules('carType','Car Type *','trim|required|max_length[255]|xss_clean');
+            $this->form_validation->set_rules('carType','Car Type *','trim|required|max_length[255]|xss_clean');
             $this->form_validation->set_rules('carSubType','Car Sub Type *','trim|required|max_length[255]|xss_clean');
             $this->form_validation->set_rules('ecv','EČV *','trim|required|max_length[8]|xss_clean');
             $this->form_validation->set_rules('vin','VIN *','trim|required|max_length[17]|xss_clean');
-            $this->form_validation->set_rules('driver','Driver *','trim|required|numeric');
+            $this->form_validation->set_rules('driver','Driver','trim|numeric');
             $this->form_validation->set_rules('totalKm','KM *','trim|required|numeric');
             $this->form_validation->set_rules('color','Color *','trim|required|max_length[100]|xss_clean');
             
             if($this->form_validation->run() == FALSE) {
                 $this->createCar();
             } else {
-                // $carType = $this->input->post('carType');
+                $carType = $this->input->post('carType');
                 $carSubType = $this->input->post('carSubType');
                 $ecv = $this->input->post('ecv');
                 $vin = $this->input->post('vin');
@@ -106,7 +106,7 @@ class Car extends BaseController {
                 /* glogbal params */
                 $createdBy = $this->global['userId'];
                 
-                $carInfo = array('carSubTypeId'=>$carSubType, 'createdDate'=>date('Y-m-d'), 'ECV'=> $ecv, 'VIN'=> $vin, 'totalCountKm'=> $totalKm,
+                $carInfo = array('carSubId'=>$carSubType, 'carSubTypeId'=>$carType, 'createdDate'=>date('Y-m-d'), 'ECV'=> $ecv, 'VIN'=> $vin, 'totalCountKm'=> $totalKm,
                                     'driverId'=> $driver, 'createdBy'=>$createdBy, 'updatedBy'=> NULL, 'color'=>$color);
                 #'createdDate'=>date('Y-m-d'), 'updatedDate'=>date('Y-m-d'),
                 
@@ -163,6 +163,75 @@ class Car extends BaseController {
                     $this->session->set_flashdata('error', 'Car type exist!');
                     redirect('createCar');
                 }
+            }
+        }
+    }
+
+    function createNewCarSubType() {
+        if(($this->isAdmin() == TRUE) && ($this->isManager() == TRUE)) {
+            $this->loadThis();
+        }
+        else {
+            $this->load->library('form_validation');
+            
+            $this->form_validation->set_rules('cSubType','Car Sub Type *','trim|required|max_length[100]|xss_clean');
+            
+            if($this->form_validation->run() == FALSE) {
+                $this->createCar();
+            } else {
+                $carSubType = $this->input->post('cSubType');
+                $carTypeId = $this->input->post('csType');
+
+                $result = $this->car_model->getCarSubTypes();
+                
+                $phpArr = json_decode(json_encode($result), true);
+                $aLength = sizeof($phpArr); // full array length
+                $count=0;
+                foreach($phpArr as $item) {
+                    // TODO: check case sensitive, now it is only exact match !!
+                    if(!in_array($carSubType, $item, true)) {
+                        $count++; 
+                    }
+                }
+
+                if($aLength == $count) {
+                    $carInfo = array('subType'=>$carSubType, 'carTypeId'=>$carTypeId);
+                    $result = $this->car_model->createNewCarSubType($carInfo);
+                
+                    if($result > 0) {
+                        $this->session->set_flashdata('success', 'New car sub type was created successfully');
+                    } else {
+                        $this->session->set_flashdata('error', 'Car sub type creation failed');
+                    }
+                        
+                    redirect('createCar');
+                } else {
+                    $this->session->set_flashdata('error', 'Car sub type exist!');
+                    redirect('createCar');
+                }
+            }
+        }
+    }
+
+    /**
+     * This function is used to delete the car using id
+     * @return boolean $result : TRUE / FALSE
+     */
+    function deleteCar() {
+        if($this->isAdmin() == TRUE) {
+            echo(json_encode(array('status'=>'access')));
+        } else {
+            $rowId = $this->input->post('id');
+            
+            $detailInfo = array('isDeleted'=>1,'updatedBy'=>$this->global['userId'], 'updatedDate'=>date('Y-m-d'));
+            $result = $this->car_model->deleteCar($rowId, $detailInfo);
+
+            if($result > 0) {
+                $this->session->set_flashdata('success', 'Car was deleted successfully');
+                echo(json_encode(array('status'=>TRUE)));
+            } else { 
+                $this->session->set_flashdata('error', 'Car deletion failed');
+                echo(json_encode(array('status'=>FALSE))); 
             }
         }
     }

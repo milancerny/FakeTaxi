@@ -12,7 +12,6 @@
             <div class="col-xs-8 text-left">
                 <div class="form-group">
                     <a class="btn btn-primary" href="<?php echo base_url(); ?>createCar"><i class="fa fa-plus"></i> Create New Car</a>
-                    <a class="btn btn-primary" href="<?php echo base_url(); ?>createCar"><i class="fa fa-plus"></i> Assign car to driver</a>
                 </div>
             </div>
             <!-- TITLEPANE -->
@@ -96,10 +95,11 @@
                             <i class="fa fa-pencil"></i>
                           </a>
 
-                          <a class="btn btn-sm btn-danger deleteTask" href="#" data-toggle="modal" data-taskid="<?php echo $record->id; ?>">
-                            <i class="fa fa-trash"></i>
-                        </a>
-
+                          <?php if($role == ROLE_ADMIN) { ?>
+                            <a class="btn btn-sm btn-danger deleteCar" href="#" data-toggle="modal" data-id="<?php echo $record->id; ?>">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                          <?php } ?>
                       </td>
                     </tr>
                     <?php
@@ -120,3 +120,43 @@
         </div>
     </section>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="myModalCar">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Delete Car</h4>
+      </div>
+      <div class="modal-body">
+        <p>This car will permanently deleted.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="deleteCarBtn">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        if($('.alert').is(":visible")) {
+            $('.alert').delay(5000).fadeOut(300); 
+        }
+        
+        jQuery('ul.pagination li a').click(function (e) {
+            e.preventDefault();            
+            var link = jQuery(this).get(0).href;
+            console.log(link);        
+            var value = link.substring(link.lastIndexOf('/') + 1);
+            console.log(value);   
+
+            jQuery("#searchList").attr("action", baseURL + "carsManagment/" + value);
+            jQuery("#searchList").submit();
+        });
+    });
+
+    /* Set icon when task complete */
+</script>

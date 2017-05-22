@@ -8,6 +8,36 @@
     </section>
     <section class="content">
         <div class="row">
+            <!-- TITLE PANE -->
+            <div class="col-md-4">
+                <?php
+                    $this->load->helper('form');
+                    $error = $this->session->flashdata('error');
+                    if($error) {
+                ?>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('error'); ?>                    
+                </div>
+                <?php } ?>
+                <?php  
+                    $success = $this->session->flashdata('success');
+                    if($success) {
+                ?>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('success'); ?>
+                </div>
+                <?php } ?>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <!-- left column -->
             <div class="col-md-8">
               <!-- general form elements -->
@@ -65,9 +95,9 @@
                                         <p><small>Total count of km</small></p>
                                     </div>
                                     <div class="form-group">
-                                        <label for="driver">Driver <small class="redStar">*</small></label>
+                                        <label for="driver">Driver</label>
                                         <select class="form-control required" id="driver" name="driver">
-                                            <!--<option value="0">Select Solver</option>-->
+                                            <option value="0"></option>
                                             <?php
                                                 if(!empty($drivers)) {
                                                     foreach ($drivers as $driver) {
@@ -128,19 +158,18 @@
                         <h3 class="box-title">Create New Car Sub Type</h3>
                     </div><!-- /.box-header -->
                     <!-- form start -->
-                    <form role="form" id="createCar" action="<?php echo base_url() ?>createNewCarType" method="post" role="form">
+                    <form role="form" id="createCar" action="<?php echo base_url() ?>createNewCarSubType" method="post" role="form">
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-md-12">                                
                                     <div class="form-group">
-                                        <label for="cType">Car Sub Type <small class="redStar">*</small></label>
-                                        <input type="text" class="form-control required" placeholder="Octavia" id="cType" name="cType" maxlength="100">
+                                        <label for="cSubType">Car Sub Type <small class="redStar">*</small></label>
+                                        <input type="text" class="form-control required" placeholder="Octavia" id="cSubType" name="cSubType" maxlength="100">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="">Car Type <small class="redStar">*</small></label>
-                                        <select class="form-control required" id="" name="">
-                                            <!--<option value="0">Select Car Type</option>-->
+                                        <label for="csType">Car Type <small class="redStar">*</small></label>
+                                        <select class="form-control required" id="csType" name="csType">
                                             <?php
                                                 if(!empty($carTypes)) {
                                                     foreach ($carTypes as $t) {
@@ -164,38 +193,10 @@
                     </form>
                 </div>
             </div>
-            <!-- TITLE PANE -->
-            <div class="col-md-4">
-                <?php
-                    $this->load->helper('form');
-                    $error = $this->session->flashdata('error');
-                    if($error) {
-                ?>
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <?php echo $this->session->flashdata('error'); ?>                    
-                </div>
-                <?php } ?>
-                <?php  
-                    $success = $this->session->flashdata('success');
-                    if($success) {
-                ?>
-                <div class="alert alert-success alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                    <?php echo $this->session->flashdata('success'); ?>
-                </div>
-                <?php } ?>
-                
-                <div class="row">
-                    <div class="col-md-12">
-                        <?php echo validation_errors('<div class="alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?>
-                    </div>
-                </div>
-            </div>
         </div>    
     </section>
 </div>
-<script src="<?php echo base_url(); ?>assets/js/createTask.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/js/createCar.js" type="text/javascript"></script>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -255,9 +256,10 @@
 
             var subTypeCombo = $("#carSubType");
             for(var i = 0; i < filtered.length; i++) { 
+                console.log(filtered[i]);
                 var option = document.createElement('option');
                 option.innerHTML = filtered[i].subType;
-                option.value = filtered[i].carTypeId;
+                option.value = filtered[i].id;//;
                 subTypeCombo.append(option);          
             }
         }).change();
